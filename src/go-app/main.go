@@ -12,5 +12,5 @@ func init() {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "This is monitoring.")
+	fmt.Fprintln(w, "This is monitoring 🖥📈📊📉 .")
 }
