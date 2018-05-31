@@ -8,6 +8,7 @@ import (
 	"google.golang.org/appengine/datastore"
 	"net/http"
 	"time"
+	"google.golang.org/appengine/log"
 )
 
 func init() {
@@ -18,6 +19,7 @@ func init() {
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 	TrackVisit(ctx)
+	log.Infof(ctx, "Visit already tracked: %v.", "✅")
 
 	fmt.Fprintln(w, "This is monitoring 🖥📈📊📉 .")
 }
