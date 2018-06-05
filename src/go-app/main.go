@@ -7,6 +7,7 @@ import (
 	"google.golang.org/appengine/log"
 
 	"go-app/service/visit"
+	"go-app/service/realtimelog"
 )
 
 func init() {
@@ -19,10 +20,13 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	visit.TrackVisit(ctx, r)
 	log.Infof(ctx, "Visit already tracked: %v.", "✅")
 
-	fmt.Fprintln(w, "This is monitoring 🖥📈📊📉 .")
+	fmt.Fprintln(w, "<br>This is monitoring 🖥📈📊📉 .")
 
 	visitsCount, err := visit.GetCount(ctx)
 	if err == nil {
-		fmt.Fprintf(w, "And this is visit # %v.", visitsCount)
+		fmt.Fprintf(w, "<br>And this is visit # %v.", visitsCount)
 	}
+
+	realtimelog.Ping(ctx)
+	fmt.Fprintln(w, "<br>Ping started...")
 }
