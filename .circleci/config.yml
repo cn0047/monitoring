@@ -9,3 +9,6 @@ jobs:
 
     steps:
       - checkout
+
+      - run: go vet
+      - run: go fmt ./...

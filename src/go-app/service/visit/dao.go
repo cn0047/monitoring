@@ -1,6 +1,8 @@
 package visit
 
-import "time"
+import (
+	"time"
+)
 
 const (
 	Name = "Visit"
@@ -8,5 +10,5 @@ const (
 
 type Visit struct {
 	TimeStamp time.Time `datastore:"noindex"`
-	Path string `datastore:"noindex"`
+	Path      string    `datastore:"noindex"`
 }

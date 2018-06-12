@@ -1,18 +1,18 @@
 package visit
 
 import (
-	"time"
 	"errors"
+	"fmt"
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/datastore"
 	"net/http"
-	"fmt"
+	"time"
 )
 
 func TrackVisit(ctx context.Context, r *http.Request) (datastore.Key, error) {
 	v := Visit{
 		TimeStamp: time.Now().UTC(),
-		Path: r.URL.Path,
+		Path:      r.URL.Path,
 	}
 	key := datastore.NewIncompleteKey(ctx, Name, nil)
 
@@ -28,7 +28,7 @@ func GetCount(ctx context.Context) (int, error) {
 	q := datastore.NewQuery(Name)
 	count, err := q.Count(ctx)
 	if err != nil {
-		return -1, fmt.Errorf("Failed to get count: %v", err)
+		return -1, fmt.Errorf("failed to get count: %v", err)
 	}
 
 	return count, nil

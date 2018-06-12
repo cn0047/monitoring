@@ -1,12 +1,12 @@
 package realtimelog
 
 import (
+	"bytes"
 	"encoding/json"
 	"golang.org/x/net/context"
-	"bytes"
-	"time"
 	"google.golang.org/appengine/log"
 	"google.golang.org/appengine/urlfetch"
+	"time"
 )
 
 const (
