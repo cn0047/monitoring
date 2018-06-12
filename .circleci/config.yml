@@ -2,6 +2,7 @@ version: 2
 
 jobs:
   build:
+
     docker:
       - image: cn007b/go:1.10-gae
 
@@ -10,5 +11,7 @@ jobs:
     steps:
       - checkout
 
-      - run: cd src/go-app && go vet && cd -
+      - run: go get ./src/go-app/...
+
+      - run: cd ./src/go-app && go vet && cd -
       - run: go fmt ./...
