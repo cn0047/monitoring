@@ -10,5 +10,5 @@ jobs:
     steps:
       - checkout
 
-      - run: go vet
+      - run: cd src/go-app && go vet && cd -
       - run: go fmt ./...
