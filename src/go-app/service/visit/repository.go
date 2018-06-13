@@ -28,7 +28,7 @@ func GetCount(ctx context.Context) (int, error) {
 	q := datastore.NewQuery(Name)
 	count, err := q.Count(ctx)
 	if err != nil {
-		return -1, fmt.Errorf("failed to get count: %v", err)
+		return 0, fmt.Errorf("failed to get count: %v", err)
 	}
 
 	return count, nil

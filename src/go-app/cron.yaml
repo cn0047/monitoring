@@ -1,0 +1,5 @@
+cron:
+- description: "single ping"
+  url: /cronTask/ping
+  target: default
+  schedule: every 1 minutes
