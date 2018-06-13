@@ -11,10 +11,11 @@ import (
 
 const (
 	URL = "https://realtimelog.herokuapp.com/health-check"
+	MSG = "thisismonitoring-health-check-ping"
 )
 
 func Ping(ctx context.Context) (r *http.Response, err error) {
-	j, _ := json.Marshal(map[string]string{"msg": "thisismonitoring-health-check-0"})
+	j, _ := json.Marshal(map[string]string{"msg": MSG})
 	client := urlfetch.Client(ctx)
 	return client.Post(URL, "application/json", bytes.NewBuffer(j))
 }

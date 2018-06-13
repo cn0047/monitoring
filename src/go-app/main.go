@@ -16,6 +16,7 @@ func init() {
 	http.HandleFunc("/ping", pingHandler)
 	http.HandleFunc("/pinging", pingingHandler)
 	http.HandleFunc("/cronTask/ping", cronTaskPingHandler)
+	http.HandleFunc("/cronTask/pinging", cronTaskPingingHandler)
 	appengine.Main()
 }
 
@@ -46,4 +47,10 @@ func cronTaskPingHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 	log.Infof(ctx, "[🤖] Ping.")
 	realtimelog.Ping(ctx)
+}
+
+func cronTaskPingingHandler(w http.ResponseWriter, r *http.Request) {
+	ctx := appengine.NewContext(r)
+	log.Infof(ctx, "[🤖] Pinging started...")
+	realtimelog.Pinging(ctx, log.Warningf)
 }

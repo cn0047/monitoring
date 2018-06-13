@@ -1,5 +1,73 @@
 cron:
-- description: "single ping"
+
+- description: "single ping #1"
   url: /cronTask/ping
+  target: default
+  schedule: every 1 minutes
+
+- description: "single ping #2"
+  url: /cronTask/ping
+  target: default
+  schedule: every 1 minutes
+
+- description: "single ping #3"
+  url: /cronTask/ping
+  target: default
+  schedule: every 1 minutes
+
+- description: "single ping #4"
+  url: /cronTask/ping
+  target: default
+  schedule: every 1 minutes
+
+- description: "single ping #5"
+  url: /cronTask/ping
+  target: default
+  schedule: every 1 minutes
+
+- description: "single ping #6"
+  url: /cronTask/ping
+  target: default
+  schedule: every 1 minutes
+
+- description: "single ping #7"
+  url: /cronTask/ping
+  target: default
+  schedule: every 1 minutes
+
+
+
+- description: "pinging #1"
+  url: /cronTask/pinging
+  target: default
+  schedule: every 1 minutes
+
+- description: "pinging #2"
+  url: /cronTask/pinging
+  target: default
+  schedule: every 1 minutes
+
+- description: "pinging #3"
+  url: /cronTask/pinging
+  target: default
+  schedule: every 1 minutes
+
+- description: "pinging #4"
+  url: /cronTask/pinging
+  target: default
+  schedule: every 1 minutes
+
+- description: "pinging #5"
+  url: /cronTask/pinging
+  target: default
+  schedule: every 1 minutes
+
+- description: "pinging #6"
+  url: /cronTask/pinging
+  target: default
+  schedule: every 1 minutes
+
+- description: "pinging #7"
+  url: /cronTask/pinging
   target: default
   schedule: every 1 minutes
