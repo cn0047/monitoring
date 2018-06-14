@@ -14,13 +14,15 @@ const (
 	MSG = "thisismonitoring-health-check-ping"
 )
 
+type LogFunc func(ctx context.Context, format string, args ...interface{})
+
 func Ping(ctx context.Context) (r *http.Response, err error) {
 	j, _ := json.Marshal(map[string]string{"msg": MSG})
 	client := urlfetch.Client(ctx)
 	return client.Post(URL, "application/json", bytes.NewBuffer(j))
 }
 
-func Pinging(ctx context.Context, log func(ctx context.Context, format string, args ...interface{})) {
+func Pinging(ctx context.Context, log LogFunc) {
 	for {
 		r, err := Ping(ctx)
 		if err != nil {
