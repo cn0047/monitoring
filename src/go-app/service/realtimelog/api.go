@@ -11,20 +11,19 @@ import (
 
 const (
 	URL = "https://realtimelog.herokuapp.com/health-check"
-	MSG = "thisismonitoring-health-check-ping"
 )
 
 type LogFunc func(ctx context.Context, format string, args ...interface{})
 
-func Ping(ctx context.Context) (r *http.Response, err error) {
-	j, _ := json.Marshal(map[string]string{"msg": MSG})
+func Ping(ctx context.Context, msg string) (r *http.Response, err error) {
+	j, _ := json.Marshal(map[string]string{"msg": msg})
 	client := urlfetch.Client(ctx)
 	return client.Post(URL, "application/json", bytes.NewBuffer(j))
 }
 
-func Pinging(ctx context.Context, log LogFunc) {
-	for {
-		r, err := Ping(ctx)
+func Pinging(ctx context.Context, msg string, log LogFunc) {
+	for i := 0; i < 100; i++ {
+		r, err := Ping(ctx, msg)
 		if err != nil {
 			log(ctx, "[🤖] Ping failed, \nr = %+v, \nv = %+v", r, err)
 		}

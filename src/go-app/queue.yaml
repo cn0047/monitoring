@@ -1,0 +1,10 @@
+queue:
+
+- name: ping
+  target: default
+  rate: 1/s
+  bucket_size: 50
+  max_concurrent_requests: 25
+  retry_parameters:
+    task_retry_limit: 7
+    task_age_limit: 2d

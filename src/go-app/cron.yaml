@@ -1,5 +1,7 @@
 cron:
 
+# Ping tasks:
+
 - description: "single ping #1"
   url: /cronTask/ping
   target: default
@@ -35,7 +37,7 @@ cron:
   target: default
   schedule: every 1 minutes
 
-
+# Pinging tasks:
 
 - description: "pinging #1"
   url: /cronTask/pinging
@@ -69,5 +71,17 @@ cron:
 
 - description: "pinging #7"
   url: /cronTask/pinging
+  target: default
+  schedule: every 1 minutes
+
+# Tasks related to queue jobs:
+
+- description: "Add ping job"
+  url: /cronTask/addPingJob
+  target: default
+  schedule: every 1 minutes
+
+- description: "Add ping jobs"
+  url: /cronTask/addPingJobs
   target: default
   schedule: every 1 minutes
