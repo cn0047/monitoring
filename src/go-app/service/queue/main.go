@@ -1,13 +1,13 @@
 package queue
 
 import (
+	"fmt"
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/taskqueue"
-	"fmt"
-
-	"service/realtimelog"
 	"net/http"
 	"strconv"
+
+	"go-app/service/realtimelog"
 )
 
 func AddPingJob(ctx context.Context, msg string) error {
@@ -23,7 +23,7 @@ func AddPingJob(ctx context.Context, msg string) error {
 
 func AddPingJobs(ctx context.Context) error {
 	for i := 0; i < 100; i++ {
-		err := AddPingJob(ctx, "thisismonitoring-health-check-ping-from-queue-" + strconv.Itoa(i))
+		err := AddPingJob(ctx, "thisismonitoring-health-check-ping-from-queue-"+strconv.Itoa(i))
 		if err != nil {
 			return fmt.Errorf("failded add tasks into ping queue, error: %v", err)
 		}
