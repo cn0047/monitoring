@@ -21,9 +21,9 @@ func AddPingJob(ctx context.Context, msg string) error {
 	return nil
 }
 
-func AddPingJobs(ctx context.Context) error {
+func AddPingJobs(ctx context.Context, prefix string) error {
 	for i := 0; i < 100; i++ {
-		err := AddPingJob(ctx, "thisismonitoring-health-check-ping-from-queue-"+strconv.Itoa(i))
+		err := AddPingJob(ctx, prefix+strconv.Itoa(i))
 		if err != nil {
 			return fmt.Errorf("failded add tasks into ping queue, error: %v", err)
 		}
