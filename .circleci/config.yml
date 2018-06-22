@@ -13,5 +13,5 @@ jobs:
 
       - run: go get ./src/go-app/...
 
-      - run: cd ./src/go-app/service && go vet && cd -
+      - run: cd ./src/go-app && go vet ./... && cd -
       - run: go fmt ./...
