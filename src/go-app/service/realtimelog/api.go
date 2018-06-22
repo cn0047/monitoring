@@ -7,10 +7,8 @@ import (
 	"google.golang.org/appengine/urlfetch"
 	"net/http"
 	"time"
-)
 
-const (
-	URL = "https://realtimelog.herokuapp.com/health-check"
+	"go-app/config"
 )
 
 type LogFunc func(ctx context.Context, format string, args ...interface{})
@@ -18,7 +16,7 @@ type LogFunc func(ctx context.Context, format string, args ...interface{})
 func Ping(ctx context.Context, msg string) (r *http.Response, err error) {
 	j, _ := json.Marshal(map[string]string{"msg": msg})
 	client := urlfetch.Client(ctx)
-	return client.Post(URL, "application/json", bytes.NewBuffer(j))
+	return client.Post(config.RealTimeLogURL, "application/json", bytes.NewBuffer(j))
 }
 
 func Pinging(ctx context.Context, msg string, log LogFunc) {

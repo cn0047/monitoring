@@ -7,6 +7,8 @@ import (
 	"google.golang.org/appengine/datastore"
 	"net/http"
 	"time"
+
+	"go-app/config/taxonomy"
 )
 
 func TrackVisit(ctx context.Context, r *http.Request) (datastore.Key, error) {
@@ -14,7 +16,7 @@ func TrackVisit(ctx context.Context, r *http.Request) (datastore.Key, error) {
 		TimeStamp: time.Now().UTC(),
 		Path:      r.URL.Path,
 	}
-	key := datastore.NewIncompleteKey(ctx, Name, nil)
+	key := datastore.NewIncompleteKey(ctx, taxonomy.DataStoreKindVisit, nil)
 
 	k, err := datastore.Put(ctx, key, &v)
 	if err != nil {
@@ -25,7 +27,7 @@ func TrackVisit(ctx context.Context, r *http.Request) (datastore.Key, error) {
 }
 
 func GetCount(ctx context.Context) (int, error) {
-	q := datastore.NewQuery(Name)
+	q := datastore.NewQuery(taxonomy.DataStoreKindVisit)
 	count, err := q.Count(ctx)
 	if err != nil {
 		return 0, fmt.Errorf("failed to get count: %v", err)
