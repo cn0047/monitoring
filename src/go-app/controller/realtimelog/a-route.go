@@ -7,9 +7,16 @@ import (
 func RegisterRoutes() {
 	http.HandleFunc("/realtimelog/ping", pingHandler)
 	http.HandleFunc("/realtimelog/pinging", pingingHandler)
-	http.HandleFunc("/realtimelog/cronTask/ping", cronTaskPingHandler)
-	http.HandleFunc("/realtimelog/cronTask/pinging", cronTaskPingingHandler)
-	http.HandleFunc("/realtimelog/cronTask/addPingJob", cronTaskAddPingJobHandler)
-	http.HandleFunc("/realtimelog/cronTask/addPingJobs", cronTaskAddPingJobsHandler)
-	http.HandleFunc("/realtimelog/worker/ping", workerPingHandler)
+}
+
+func RegisterCronRoutes() {
+	http.HandleFunc("/cronTask/realtimelog/ping", cronTaskPingHandler)
+	http.HandleFunc("/cronTask/realtimelog/pinging", cronTaskPingingHandler)
+	http.HandleFunc("/cronTask/realtimelog/addPingJob", cronTaskAddPingJobHandler)
+	http.HandleFunc("/cronTask/realtimelog/addPingingJob", cronTaskAddPingingJobHandler)
+}
+
+func RegisterWorkerRoutes() {
+	http.HandleFunc("/worker/realtimelog/ping", workerPingHandler)
+	http.HandleFunc("/worker/realtimelog/pinging", workerPingingHandler)
 }

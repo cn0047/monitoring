@@ -5,6 +5,6 @@ import (
 )
 
 type Visit struct {
-	TimeStamp time.Time `datastore:"noindex"`
-	Path      string    `datastore:"noindex"`
+	TimeStamp time.Time `datastore:"timeStamp,noindex"`
+	Path      string    `datastore:"path,noindex"`
 }

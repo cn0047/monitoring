@@ -5,11 +5,15 @@ import (
 
 	"go-app/controller/realtimelog"
 	"go-app/controller/home"
+	"go-app/controller/cron"
+	"go-app/controller/worker"
 )
 
 func init() {
-	realtimelog.RegisterRoutes()
+	cron.RegisterRoutes()
 	home.RegisterRoutes()
+	realtimelog.RegisterRoutes()
+	worker.RegisterRoutes()
 
 	appengine.Main()
 }

@@ -2,5 +2,6 @@ package config
 
 const (
 	WorkerPathPing = "/worker/ping"
-	WorkerPingingThreshold = 100
+	WorkerPathPinging = "/worker/pinging"
+	WorkerPingingThreshold = 500
 )

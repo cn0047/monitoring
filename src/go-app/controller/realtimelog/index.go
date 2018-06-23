@@ -1,20 +1,37 @@
 package realtimelog
 
 import (
-	"net/http"
 	"fmt"
-	"google.golang.org/appengine/log"
 	"google.golang.org/appengine"
+	"net/http"
+	"strconv"
+	"time"
 
+	"go-app/config"
 	"go-app/service/realtimelog"
 )
 
 func pingHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "<br>Ping.")
-	realtimelog.Ping(appengine.NewContext(r), "thisismonitoring-health-check-ping")
+	ctx := appengine.NewContext(r)
+
+	res, err := realtimelog.Ping(ctx, "thisismonitoring-health-check-ping")
+	if err == nil {
+		fmt.Fprintf(w, "Performed ping, result: %v", res)
+	} else {
+		fmt.Fprintf(w, "Filed to perform ping, error: %v", err)
+	}
 }
 
 func pingingHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "<br>Pinging started...")
-	realtimelog.Pinging(appengine.NewContext(r), "thisismonitoring-health-check-pinging", log.Warningf)
+	ctx := appengine.NewContext(r)
+
+	for i := 0; i < config.RealTimeLogPingingThreshold; i++ {
+		res, err := realtimelog.Ping(ctx, "thisismonitoring-health-check-pinging-"+strconv.Itoa(i))
+		if err == nil {
+			fmt.Fprintf(w, "%sPerformed ping #%d, result: %v", "<br>", i, res)
+		} else {
+			fmt.Fprintf(w, "%sFiled to perform ping #%d, error: %v", "<br>", i, err)
+		}
+		time.Sleep(config.RealTimeLogPingingSleepLimit * time.Millisecond)
+	}
 }
