@@ -11,8 +11,8 @@ queue:
 
 - name: pinging
   target: default
-  rate: 1000/s
-  bucket_size: 1050
+  rate: 500/s
+  bucket_size: 500
   max_concurrent_requests: 1010
   retry_parameters:
     task_retry_limit: 7
