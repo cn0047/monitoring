@@ -1,5 +1,6 @@
 runtime: go
 api_version: go1
+service: monitoring
 
 manual_scaling:
   instances: 3
