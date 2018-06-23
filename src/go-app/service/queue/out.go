@@ -15,8 +15,6 @@ func PerformPingJob(ctx context.Context, msg string) (r *http.Response, err erro
 	return realtimelog.Ping(ctx, msg)
 }
 
-type LogFunc func(ctx context.Context, format string, args ...interface{})
-
 func PerformPingingJob(ctx context.Context, msg string) (ok string, err error) {
 	ok = "[🤖✅]"
 

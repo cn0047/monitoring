@@ -2,6 +2,8 @@ package realtimelog
 
 import (
 	"net/http"
+
+	"go-app/config"
 )
 
 func RegisterRoutes() {
@@ -17,6 +19,6 @@ func RegisterCronRoutes() {
 }
 
 func RegisterWorkerRoutes() {
-	http.HandleFunc("/worker/realtimelog/ping", workerPingHandler)
-	http.HandleFunc("/worker/realtimelog/pinging", workerPingingHandler)
+	http.HandleFunc(config.WorkerPathPing, workerPingHandler)
+	http.HandleFunc(config.WorkerPathPinging, workerPingingHandler)
 }
