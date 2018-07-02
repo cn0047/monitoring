@@ -29,11 +29,12 @@ func cronTaskPingHandler(w http.ResponseWriter, r *http.Request) {
 func cronTaskPingingHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
+	w.WriteHeader(http.StatusOK)
+
 	for i := 0; i < config.RealTimeLogPingingThreshold; i++ {
 		time.Sleep(config.RealTimeLogPingingSleepLimit * time.Millisecond)
 		res, err := realtimelog.Ping(ctx, "thisismonitoring-health-check-pinging-from-cron-"+strconv.Itoa(i))
 		if err == nil {
-			w.WriteHeader(http.StatusOK)
 			log.Infof(ctx, "[🤖✅ ] Performed Ping #%d, result: %v", i, res)
 		} else {
 			// 1 fail - fail whole cron task.
