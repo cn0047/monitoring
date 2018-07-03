@@ -19,7 +19,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	if err == nil {
 		log.Infof(ctx, "✅ Visit already tracked, key: %v.", k)
 	} else {
-		log.Infof(ctx, "❌ Failed to track visit, error: %v.", err)
+		log.Errorf(ctx, "❌ Failed to track visit, error: %v.", err)
 	}
 
 	visitsCount, err := visit.GetCount(ctx)

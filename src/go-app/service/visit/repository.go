@@ -20,7 +20,7 @@ func TrackVisit(ctx context.Context, r *http.Request) (datastore.Key, error) {
 
 	k, err := datastore.Put(ctx, key, &v)
 	if err != nil {
-		return datastore.Key{}, errors.New("Failed to store visit, error: " + err.Error())
+		return datastore.Key{}, errors.New("[20180703-006] Failed to store visit, error: " + err.Error())
 	}
 
 	return *k, nil
@@ -30,7 +30,7 @@ func GetCount(ctx context.Context) (int, error) {
 	q := datastore.NewQuery(taxonomy.DataStoreKindVisit)
 	count, err := q.Count(ctx)
 	if err != nil {
-		return 0, fmt.Errorf("failed to get count: %v", err)
+		return 0, fmt.Errorf("[20180703-007] failed to get count: %v", err)
 	}
 
 	return count, nil

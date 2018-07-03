@@ -5,10 +5,7 @@ import (
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 	"net/http"
-	"strconv"
-	"time"
 
-	"go-app/config"
 	"go-app/service/queue"
 	"go-app/service/realtimelog"
 )
@@ -16,39 +13,33 @@ import (
 func cronTaskPingHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	res, err := realtimelog.Ping(ctx, "thisismonitoring-health-check-ping-from-cron")
+	res, err := realtimelog.Ping(ctx, "ping-from-cron")
 	if err == nil {
 		w.WriteHeader(http.StatusOK)
 		log.Infof(ctx, "[🤖✅ ] Performed Ping, result: %v", res)
 	} else {
 		w.WriteHeader(http.StatusInternalServerError)
-		log.Infof(ctx, "[🤖❌ ] Filed to perform Ping, error: %v", err)
+		log.Errorf(ctx, "[🤖❌ ] Filed to perform Ping, error: %v", err)
 	}
 }
 
 func cronTaskPingingHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	w.WriteHeader(http.StatusOK)
-
-	for i := 0; i < config.RealTimeLogPingingThreshold; i++ {
-		time.Sleep(config.RealTimeLogPingingSleepLimit * time.Millisecond)
-		res, err := realtimelog.Ping(ctx, "thisismonitoring-health-check-pinging-from-cron-"+strconv.Itoa(i))
-		if err == nil {
-			log.Infof(ctx, "[🤖✅ ] Performed Ping #%d, result: %v", i, res)
-		} else {
-			// 1 fail - fail whole cron task.
-			w.WriteHeader(http.StatusInternalServerError)
-			log.Infof(ctx, "[🤖❌ ] Filed to perform Ping #%d, error: %v", i, err)
-			return
-		}
+	res, err := realtimelog.Pinging(ctx, "pinging-from-cron")
+	if err == nil {
+		w.WriteHeader(http.StatusOK)
+		log.Infof(ctx, "[🤖✅ ] Performed Pinging, result: %v", res)
+	} else {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Errorf(ctx, "[🤖❌ ] Filed to perform Pinging, error: %v, result: %+v", err, res)
 	}
 }
 
 func cronTaskAddPingJobHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	err := queue.AddPingJob(ctx, "thisismonitoring-health-check-ping-from-queue")
+	err := queue.AddPingJob(ctx, "ping-from-queue")
 	if err == nil {
 		w.WriteHeader(http.StatusOK)
 		log.Infof(ctx, "[🤖✅ ] Performed AddPingJob.")
@@ -61,7 +52,7 @@ func cronTaskAddPingJobHandler(w http.ResponseWriter, r *http.Request) {
 func cronTaskAddPingingJobHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	err := queue.AddPingingJob(ctx, "thisismonitoring-health-check-pinging-from-queue-")
+	err := queue.AddPingingJob(ctx, "pinging-from-queue")
 	if err == nil {
 		w.WriteHeader(http.StatusOK)
 		log.Infof(ctx, "[🤖✅ ] Performed AddPingingJob.")

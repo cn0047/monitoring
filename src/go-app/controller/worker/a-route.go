@@ -1,6 +1,8 @@
 package worker
 
-import "go-app/controller/realtimelog"
+import (
+	"go-app/controller/realtimelog"
+)
 
 func RegisterRoutes() {
 	realtimelog.RegisterWorkerRoutes()

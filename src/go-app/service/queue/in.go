@@ -22,7 +22,7 @@ func addJob(ctx context.Context, queueName string, path string, msg string) erro
 
 	_, err := taskqueue.Add(ctx, t, queueName)
 	if err != nil {
-		return fmt.Errorf("failded add task into %s queue, error: %v", queueName, err)
+		return fmt.Errorf("[20180703-005] failded add task into %s queue, error: %v", queueName, err)
 	}
 
 	return nil
