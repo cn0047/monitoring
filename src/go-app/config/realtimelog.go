@@ -3,5 +3,5 @@ package config
 const (
 	RealTimeLogURL               = "https://realtimelog.herokuapp.com/health-check"
 	RealTimeLogPingingSleepLimit = 1
-	RealTimeLogPingingThreshold  = 10
+	RealTimeLogPingingThreshold  = 3
 )
