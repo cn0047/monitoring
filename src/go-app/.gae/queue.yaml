@@ -2,18 +2,18 @@ queue:
 
 - name: ping
   target: default
-  rate: 500/s
-  bucket_size: 450
-  max_concurrent_requests: 510
+  rate: 5/s
+  bucket_size: 7
+  max_concurrent_requests: 5
   retry_parameters:
-    task_retry_limit: 7
-    task_age_limit: 2d
+    task_retry_limit: 2
+    task_age_limit: 1d
 
 - name: pinging
   target: default
-  rate: 500/s
-  bucket_size: 500
-  max_concurrent_requests: 1010
+  rate: 5/s
+  bucket_size: 7
+  max_concurrent_requests: 5
   retry_parameters:
-    task_retry_limit: 7
-    task_age_limit: 2d
+    task_retry_limit: 2
+    task_age_limit: 1d
