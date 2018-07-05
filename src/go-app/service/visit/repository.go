@@ -13,8 +13,9 @@ import (
 
 func TrackVisit(ctx context.Context, r *http.Request) (datastore.Key, error) {
 	v := Visit{
-		TimeStamp: time.Now().UTC(),
-		Path:      r.URL.Path,
+		TimeStamp:     time.Now().UTC(),
+		Path:          r.URL.Path,
+		RemoteAddress: r.RemoteAddr,
 	}
 	key := datastore.NewIncompleteKey(ctx, taxonomy.DataStoreKindVisit, nil)
 
