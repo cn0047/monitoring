@@ -1,7 +1,7 @@
 cron:
 
 #
-# Have to disable this cron 😔
+# Have to disable this cron (((
 # because project always under the quota...
 #
 #- description: "single ping"
