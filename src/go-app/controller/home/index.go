@@ -1,11 +1,15 @@
 package home
 
 import (
-	"fmt"
-	"github.com/thepkg/strings"
+	"html/template"
 	"net/http"
+	"github.com/thepkg/strings"
 )
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "<br>This is %s 🖥📈📊📉 .", strings.ToUpperFirst("monitoring"))
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	tpl := template.Must(template.ParseFiles("../template/home.html"))
+	data := map[string]string{
+		"title": strings.ToUpperFirst("monitoring"),
+	}
+	tpl.Execute(w, data)
 }

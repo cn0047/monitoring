@@ -12,7 +12,7 @@ import (
 	"go-app/config"
 )
 
-func stackDriverErrorsHandler(w http.ResponseWriter, r *http.Request) {
+func StackDriverErrorsHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	errorClient, err := errorreporting.NewClient(ctx, config.ProjectID, errorreporting.Config{
@@ -31,10 +31,10 @@ func stackDriverErrorsHandler(w http.ResponseWriter, r *http.Request) {
 	er := errors.New("My test error.")
 	errorClient.Report(errorreporting.Entry{Error: er})
 
-	fmt.Fprint(w, "OK.")
+	fmt.Fprint(w, "Error reported.")
 }
 
-func stackDriverLogsHandler(w http.ResponseWriter, r *http.Request) {
+func StackDriverLogsHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	client, err := logging.NewClient(ctx, config.ProjectID)
@@ -47,5 +47,5 @@ func stackDriverLogsHandler(w http.ResponseWriter, r *http.Request) {
 	logger := client.Logger("experiment").StandardLogger(logging.Info)
 	logger.Println("My test log.")
 
-	fmt.Fprint(w, "OK.")
+	fmt.Fprint(w, "Log stored.")
 }

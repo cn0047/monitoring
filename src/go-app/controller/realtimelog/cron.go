@@ -10,7 +10,7 @@ import (
 	"go-app/service/realtimelog"
 )
 
-func cronTaskPingHandler(w http.ResponseWriter, r *http.Request) {
+func CronTaskPingHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	res, err := realtimelog.Ping(ctx, "ping-from-cron")
@@ -23,7 +23,7 @@ func cronTaskPingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func cronTaskPingingHandler(w http.ResponseWriter, r *http.Request) {
+func CronTaskPingingHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	res, err := realtimelog.Pinging(ctx, "pinging-from-cron")
@@ -36,7 +36,7 @@ func cronTaskPingingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func cronTaskAddPingJobHandler(w http.ResponseWriter, r *http.Request) {
+func CronTaskAddPingJobHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	err := queue.AddPingJob(ctx, "ping-from-queue")
@@ -49,7 +49,7 @@ func cronTaskAddPingJobHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func cronTaskAddPingingJobHandler(w http.ResponseWriter, r *http.Request) {
+func CronTaskAddPingingJobHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	err := queue.AddPingingJob(ctx, "pinging-from-queue")

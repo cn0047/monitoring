@@ -3,21 +3,21 @@ cron:
 - description: "single ping"
   url: /cronTask/realtimelog/ping
   target: default
-  schedule: every 50 minutes
+  schedule: every 24 hours
 
 - description: "pinging"
   url: /cronTask/realtimelog/pinging
   target: default
-  schedule: every 57 minutes
+  schedule: every 24 hours
 
 # Tasks related to queue jobs:
 
 - description: "Add ping job"
   url: /cronTask/realtimelog/addPingJob
   target: default
-  schedule: every 55 minutes
+  schedule: every 24 hours
 
 - description: "Add ping jobs"
   url: /cronTask/realtimelog/addPingingJob
   target: default
-  schedule: every 59 minutes
+  schedule: every 24 hours

@@ -8,7 +8,7 @@ import (
 	"go-app/service/queue"
 )
 
-func workerPingHandler(w http.ResponseWriter, r *http.Request) {
+func WorkerPingHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	msg := r.FormValue("msg")
@@ -22,7 +22,7 @@ func workerPingHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func workerPingingHandler(w http.ResponseWriter, r *http.Request) {
+func WorkerPingingHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	msg := r.FormValue("msg")

@@ -9,7 +9,7 @@ import (
 	"go-app/service/visit"
 )
 
-func datastoreVisitHandler(w http.ResponseWriter, r *http.Request) {
+func DatastoreVisitHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
 	k, err := visit.TrackVisit(ctx, r)

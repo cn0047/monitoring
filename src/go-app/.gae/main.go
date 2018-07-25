@@ -3,19 +3,14 @@ package _gae
 import (
 	"google.golang.org/appengine"
 
-	"go-app/controller/cron"
-	"go-app/controller/experiment"
-	"go-app/controller/home"
-	"go-app/controller/realtimelog"
-	"go-app/controller/worker"
+	"go-app/route"
 )
 
 func init() {
-	cron.RegisterRoutes()
-	experiment.RegisterRoutes()
-	home.RegisterRoutes()
-	realtimelog.RegisterRoutes()
-	worker.RegisterRoutes()
+	route.Static() // @important This route works by using prefix so it must be declared before else routes.
+	route.Experiment()
+	route.Home()
+	route.Realtimelog()
 
 	appengine.Main()
 }
