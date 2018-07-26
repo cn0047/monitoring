@@ -12,3 +12,6 @@ handlers:
 - url: /worker/.*
   script: _go_app
   login: admin
+
+- url: /static
+  static_dir: static

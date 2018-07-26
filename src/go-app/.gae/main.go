@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	route.Static() // @important This route works by using prefix so it must be declared before else routes.
+	route.Page() // @important This route works by using prefix so it must be declared before else routes.
 	route.Experiment()
 	route.Home()
 	route.Realtimelog()
