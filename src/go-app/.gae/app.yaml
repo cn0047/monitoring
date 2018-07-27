@@ -15,3 +15,9 @@ handlers:
 
 - url: /static
   static_dir: static
+
+error_handlers:
+  - file: static/html/error/default.html
+
+  - error_code: over_quota
+    file: static/html/error/overQuota.html
