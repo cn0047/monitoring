@@ -7,7 +7,7 @@ import (
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
-	tpl := template.Must(template.ParseFiles("../.gae/template/home/index.go.html"))
+	tpl := template.Must(template.ParseFiles("template/home/index.go.html"))
 	data := map[string]string{
 		"title": strings.ToUpperFirst("monitoring"),
 	}

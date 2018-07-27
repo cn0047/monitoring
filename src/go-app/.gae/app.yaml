@@ -1,9 +1,6 @@
 runtime: go
 api_version: go1
 
-manual_scaling:
-  instances: 3
-
 handlers:
 
 - url: /.*
