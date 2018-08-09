@@ -2,11 +2,10 @@ package route
 
 import (
 	"net/http"
+
+	"go-app/controller/page"
 )
 
 func Page() {
-	dir := http.Dir("../.gae/template/page/")
-	handler := http.StripPrefix("/page/", http.FileServer(dir))
-
-	http.Handle("/page/", handler)
+	http.Handle("/page/", page.IndexHandler)
 }
