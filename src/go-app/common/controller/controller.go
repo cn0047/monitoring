@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// InternalResponse helper func which sends response for internal requests.
 func InternalResponse(ctx context.Context, w http.ResponseWriter, action string, data interface{}, err error) {
 	if err == nil {
 		w.WriteHeader(http.StatusOK)
