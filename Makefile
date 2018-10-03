@@ -3,6 +3,9 @@ export GOPATH=${CURDIR}
 env:
 	echo GOPATH=$(GOPATH)
 
+init:
+	go get ./src/go-app/...
+
 dev:
 	~/.google-cloud-sdk/bin/dev_appserver.py \
 		--skip_sdk_update_check=false \

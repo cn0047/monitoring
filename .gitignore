@@ -1,6 +1,7 @@
 .data
 pkg
 src/cloud.google.com
+src/contrib.go.opencensus.io
 src/github.com
 src/go.opencensus.io
 src/golang.org
