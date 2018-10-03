@@ -13,6 +13,9 @@ handlers:
 - url: /static
   static_dir: static
 
+- url: /google74caec1abcbbe3ab.html
+  static_dir: static/google74caec1abcbbe3ab.html
+
 error_handlers:
   - file: static/html/error/default.html
 
