@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+}
+p {
+    border-top: 1px solid whitesmoke;
+    clear: both;
+    margin: 5px 0;
+    padding: 5px 0;
+}
+
+
+
+#nav {
+    background-color: whitesmoke;
+    padding: 10px;
+    border-bottom: 1px solid gainsboro;
+    color: dimgray;
+}
+#nav a {
+    text-decoration: none;
+    color: dimgray;
+}
+#nav .blue {
+    color: cornflowerblue;
+}
+#nav .green {
+    text-decoration: blink;
+    color: seagreen;
+}
+#nav div {
+    margin-right: 9px;
+}
+#nav .dropdown, div {
+    cursor: pointer;
+}
+
+
+
+.nw {
+    white-space: nowrap;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content div {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.pull-right {
+    float: right;
+}
+.rightcenter {
+    bottom: 0;
+    height: 40px;
+    margin: auto;
+    overflow: auto;
+    padding-right: 10px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 35px;
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.hide {
+    display: none;
+}
+
+
+
+.purple {
+    color: #a535ae;
+}
+.green {
+    color: #00a33f;
+}
+.orange {
+    color: #ff5600;
+}

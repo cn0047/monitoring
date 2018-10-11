@@ -1,29 +1,26 @@
 package queue
 
 import (
-	"fmt"
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/taskqueue"
 
 	"go-app/config"
+	"go-app/config/taxonomy/ERR"
+	"go-app/service/datastore/Project"
 )
 
-func AddPingJob(ctx context.Context, msg string) error {
-	return addJob(ctx, "ping", config.WorkerPathPing, msg)
-}
-
-func AddPingingJob(ctx context.Context, msg string) error {
-	return addJob(ctx, "pinging", config.WorkerPathPinging, msg)
-}
-
-func addJob(ctx context.Context, queueName string, path string, msg string) error {
-	params := map[string][]string{"msg": {msg}}
-	t := taskqueue.NewPOSTTask(path, params)
-
-	_, err := taskqueue.Add(ctx, t, queueName)
-	if err != nil {
-		return fmt.Errorf("[20180703-005] failded add task into %s queue, error: %v", queueName, err)
+func AddPingJob(ctx context.Context, prj Project.Entity) {
+	queueName := config.WorkerPathPing
+	params := map[string][]string{
+		"project": {prj.ID},
+		"url":     {prj.URL},
+		"method":  {prj.Method},
+		"json":    {prj.JSON},
 	}
+	t := taskqueue.NewPOSTTask(queueName, params)
 
-	return nil
+	_, err := taskqueue.Add(ctx, t, config.QueuePing)
+	if err != nil {
+		panic(ERR.Queue("AddInQueue project "+prj.ID, queueName, err))
+	}
 }
