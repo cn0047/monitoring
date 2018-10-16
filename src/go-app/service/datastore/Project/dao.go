@@ -5,7 +5,6 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/datastore"
 
-	"go-app/config/taxonomy/DataStoreKind"
 	"go-app/config/taxonomy/ERR"
 )
 
@@ -17,7 +16,6 @@ func Add(ctx context.Context, vo CreateVO) {
 		panic(ERR.VOInvalid(vo))
 	}
 
-	kind := DataStoreKind.Project
 	prj := Entity{
 		ID:       vo.ID,
 		URL:      vo.URL,
@@ -25,7 +23,7 @@ func Add(ctx context.Context, vo CreateVO) {
 		JSON:     vo.JSON,
 		Schedule: vo.Schedule,
 	}
-	key := datastore.NewKey(ctx, kind, vo.ID, 0, nil)
+	key := datastore.NewKey(ctx, prj.GetKind(), vo.ID, 0, nil)
 	gcd.MustPut(ctx, key, &prj)
 }
 

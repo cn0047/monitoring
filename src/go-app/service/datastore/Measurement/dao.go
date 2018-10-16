@@ -6,7 +6,6 @@ import (
 	"google.golang.org/appengine/datastore"
 	"time"
 
-	"go-app/config/taxonomy/DataStoreKind"
 	"go-app/config/taxonomy/ERR"
 )
 
@@ -18,14 +17,13 @@ func Add(ctx context.Context, vo CreateVO) {
 		panic(ERR.VOInvalid(vo))
 	}
 
-	kind := DataStoreKind.Measurement
 	m := Entity{
 		Project:      vo.Project,
 		At:           time.Now().UTC(),
 		Took:         vo.Took,
 		ResponseCode: vo.ResponseCode,
 	}
-	key := datastore.NewIncompleteKey(ctx, kind, nil)
+	key := datastore.NewIncompleteKey(ctx, m.GetKind(), nil)
 	gcd.MustPut(ctx, key, &m)
 }
 

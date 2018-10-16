@@ -7,6 +7,7 @@ import (
 	ccron "go-app/controller/cron"
 	chome "go-app/controller/home"
 	cworker "go-app/controller/worker"
+	m "go-app/middleware"
 )
 
 func Init() {
@@ -17,19 +18,19 @@ func Init() {
 }
 
 func _ah() {
-	http.HandleFunc("/_ah/warmup", cah.WarmUp)
+	http.HandleFunc("/_ah/warmup", m.All(cah.WarmUp))
 }
 
 func cron() {
-	http.HandleFunc("/cron/addPingJobs", ccron.AddPingJobs)
+	http.HandleFunc("/cron/addPingJobs", m.All(ccron.AddPingJobs))
 }
 
 func worker() {
-	http.HandleFunc("/worker/ping", cworker.Ping)
+	http.HandleFunc("/worker/ping", m.All(cworker.Ping))
 }
 
 func home() {
-	http.HandleFunc("/", chome.Index)
-	http.HandleFunc("/index", chome.Index)
-	http.HandleFunc("/home", chome.Index)
+	http.HandleFunc("/", m.All(chome.Index))
+	http.HandleFunc("/index", m.All(chome.Index))
+	http.HandleFunc("/home", m.All(chome.Index))
 }
