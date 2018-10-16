@@ -7,6 +7,9 @@ p {
     margin: 5px 0;
     padding: 5px 0;
 }
+#root {
+    margin: 15px;
+}
 
 
 
@@ -90,4 +93,13 @@ p {
 }
 .orange {
     color: #ff5600;
+}
+
+
+
+.charts .chart {
+    width: 47%;
+    height: 330px;
+    float: left;
+    margin: 20px;
 }

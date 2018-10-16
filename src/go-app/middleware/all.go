@@ -4,9 +4,16 @@ import (
 	"net/http"
 )
 
-// All wrapper for all middlewares.
+// Web wrapper for all "web" middlewares (regular web pages with server-side rendering).
 // Only this function must be used in routes
 // and here must be registered all middlewares.
-func All(handler http.HandlerFunc) http.HandlerFunc {
-	return withPanic(handler)
+func Web(handler http.HandlerFunc) http.HandlerFunc {
+	return withWebPanic(handler)
+}
+
+// API wrapper for all "API" middlewares (REST-ful API endpoints).
+// Only this function must be used in routes
+// and here must be registered all middlewares.
+func API(handler http.HandlerFunc) http.HandlerFunc {
+	return withAPIPanic(handler)
 }
