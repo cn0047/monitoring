@@ -7,6 +7,7 @@ import (
 	"github.com/thepkg/strings"
 )
 
+// Index default controller (index page or home page).
 func Index(w http.ResponseWriter, r *http.Request) {
 	tpl := template.Must(template.ParseFiles("template/home/index.go.html"))
 	data := map[string]string{

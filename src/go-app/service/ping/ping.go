@@ -1,6 +1,7 @@
 package ping
 
 import (
+	"fmt"
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/urlfetch"
 	"net/http"
@@ -11,6 +12,7 @@ import (
 	"go-app/service/datastore/Measurement"
 )
 
+// Do performs main ping action and saves result into DataStore.
 func Do(ctx context.Context, vo VO) {
 	if !vo.IsValid() {
 		panic(ERR.VOInvalid(vo))
@@ -34,7 +36,7 @@ func exec(ctx context.Context, vo VO) (r *http.Response, err error) {
 	case taxonomy.MethodHead, taxonomy.MethodGet:
 		return client.Get(vo.URL)
 	default:
-		// @todo
+		panic(ERR.Ping(fmt.Errorf("got unsupported method: %s", vo.Method)))
 	}
 
 	return client.Post(vo.URL, vo.ContentType, vo.Body)

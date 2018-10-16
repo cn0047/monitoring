@@ -10,6 +10,7 @@ import (
 	"go-app/service/datastore/Project"
 )
 
+// WarmUp internal AppEngine controller for init purposes.
 func WarmUp(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 

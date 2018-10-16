@@ -9,6 +9,7 @@ import (
 	"go-app/service/datastore/Project"
 )
 
+// AddPingJob performs add ping job into queue.
 func AddPingJob(ctx context.Context, prj Project.Entity) {
 	queueName := config.WorkerPathPing
 	params := map[string][]string{

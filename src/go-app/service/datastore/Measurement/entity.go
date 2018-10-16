@@ -6,6 +6,7 @@ import (
 	"go-app/config/taxonomy/DataStoreKind"
 )
 
+// Entity describes Datastore measurement entity.
 type Entity struct {
 	Project      string    `datastore:"project"`
 	At           time.Time `datastore:"at"`
@@ -13,6 +14,7 @@ type Entity struct {
 	ResponseCode int       `datastore:"responseCode"`
 }
 
-func (e Entity) GetKind() string {
+// GetKind {@inheritdoc}
+func (_this Entity) GetKind() string {
 	return DataStoreKind.Measurement
 }

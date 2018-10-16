@@ -9,9 +9,11 @@ import (
 	"go-app/config/taxonomy/ERR"
 )
 
+// Get gets measurement entity.
 func Get() {
 }
 
+// Add creates new measurement entity in DataStore.
 func Add(ctx context.Context, vo CreateVO) {
 	if !vo.IsValid() {
 		panic(ERR.VOInvalid(vo))
@@ -27,8 +29,10 @@ func Add(ctx context.Context, vo CreateVO) {
 	gcd.MustPut(ctx, key, &m)
 }
 
+// Update performs update for measurement entity.
 func Update() {
 }
 
+// Delete performs delete measurement entity.
 func Delete() {
 }

@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Entity describes Datastore project entity.
 type Entity struct {
 	ID       string `datastore:"id"` // project
 	URL      string `datastore:"url"`
@@ -13,10 +14,12 @@ type Entity struct {
 	Schedule int    `datastore:"schedule"` // seconds
 }
 
+// GetKind {@inheritdoc}
 func (e Entity) GetKind() string {
 	return DataStoreKind.Project
 }
 
-func (e Entity) GetScheduleDuration() time.Duration {
-	return time.Duration(e.Schedule) * time.Second
+// GetScheduleDuration gets schedule value as time.Duration.
+func (_this Entity) GetScheduleDuration() time.Duration {
+	return time.Duration(_this.Schedule) * time.Second
 }

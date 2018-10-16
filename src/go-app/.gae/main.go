@@ -9,7 +9,5 @@ import (
 func init() {
 	route.Init()
 
-	// @todo panic
-
 	appengine.Main()
 }

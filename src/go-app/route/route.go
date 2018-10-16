@@ -10,6 +10,7 @@ import (
 	m "go-app/middleware"
 )
 
+// Init function to initialize all possible routes.
 func Init() {
 	_ah()
 	cron()

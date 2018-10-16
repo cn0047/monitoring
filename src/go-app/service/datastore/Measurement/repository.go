@@ -9,6 +9,7 @@ import (
 	"go-app/config/taxonomy/DataStoreKind"
 )
 
+// GetLastAt gets time "at" for last entity.
 func GetLastAt(ctx context.Context, project string) time.Time {
 	kind := DataStoreKind.Measurement
 	query := datastore.NewQuery(kind).

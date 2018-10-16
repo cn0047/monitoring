@@ -12,6 +12,7 @@ import (
 	"go-app/service/queue"
 )
 
+// AddPingJobs controller to add batch of ping jobs.
 func AddPingJobs(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 

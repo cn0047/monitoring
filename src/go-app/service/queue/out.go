@@ -8,6 +8,7 @@ import (
 	"go-app/service/ping"
 )
 
+// ProcessPingJob performs execution for ping job.
 func ProcessPingJob(ctx context.Context, r *http.Request) {
 	vo := makeVO(r)
 	ping.Do(ctx, vo)

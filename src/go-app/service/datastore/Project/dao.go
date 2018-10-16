@@ -8,9 +8,11 @@ import (
 	"go-app/config/taxonomy/ERR"
 )
 
+// Get gets project entity.
 func Get() {
 }
 
+// Add creates new project entity in DataStore.
 func Add(ctx context.Context, vo CreateVO) {
 	if !vo.IsValid() {
 		panic(ERR.VOInvalid(vo))
@@ -27,8 +29,10 @@ func Add(ctx context.Context, vo CreateVO) {
 	gcd.MustPut(ctx, key, &prj)
 }
 
+// Update performs update for project entity.
 func Update() {
 }
 
+// Delete performs delete project entity.
 func Delete() {
 }

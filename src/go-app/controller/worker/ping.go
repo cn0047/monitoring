@@ -8,6 +8,7 @@ import (
 	"go-app/service/queue"
 )
 
+// Ping controller which handles ping jobs.
 func Ping(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 	queue.ProcessPingJob(ctx, r)

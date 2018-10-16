@@ -8,6 +8,7 @@ import (
 	"go-app/config/taxonomy/DataStoreKind"
 )
 
+// GetAll gets all projects.
 func GetAll(ctx context.Context) []Entity {
 	kind := DataStoreKind.Project
 	query := datastore.NewQuery(kind)
