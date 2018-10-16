@@ -1,7 +1,6 @@
 package ping
 
 import (
-	"fmt"
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/urlfetch"
 	"net/http"
@@ -35,8 +34,6 @@ func exec(ctx context.Context, vo VO) (r *http.Response, err error) {
 	switch vo.Method {
 	case taxonomy.MethodHead, taxonomy.MethodGet:
 		return client.Get(vo.URL)
-	default:
-		panic(ERR.Ping(fmt.Errorf("got unsupported method: %s", vo.Method)))
 	}
 
 	return client.Post(vo.URL, vo.ContentType, vo.Body)
