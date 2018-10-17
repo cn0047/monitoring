@@ -33,7 +33,7 @@ google.charts.setOnLoadCallback(app);
 
 document.getElementById('project').addEventListener('click', () => f('12h', 0));
 
-document.querySelectorAll('.charts .timeRange a').forEach((el) => {
+document.querySelectorAll('#charts .timeRange a').forEach((el) => {
   el.addEventListener('click', (e) => f(e.target.text, 0));
 });
 
