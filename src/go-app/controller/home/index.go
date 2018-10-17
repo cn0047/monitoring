@@ -8,7 +8,7 @@ import (
 
 	"go-app/config"
 	"go-app/config/taxonomy"
-	"go-app/service/datastore/project"
+	"go-app/service/datastore/Project"
 )
 
 // Index default controller (index page or home page).
