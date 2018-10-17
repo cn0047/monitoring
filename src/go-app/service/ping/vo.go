@@ -14,11 +14,11 @@ type VO struct {
 }
 
 // GetName {@inheritdoc}
-func (_this VO) GetName() string {
+func (vo VO) GetName() string {
 	return "ping.VO"
 }
 
 // IsValid {@inheritdoc}
-func (_this VO) IsValid() bool {
+func (vo VO) IsValid() bool {
 	return true
 }

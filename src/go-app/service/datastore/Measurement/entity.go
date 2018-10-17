@@ -15,6 +15,6 @@ type Entity struct {
 }
 
 // GetKind {@inheritdoc}
-func (_this Entity) GetKind() string {
+func (e Entity) GetKind() string {
 	return DataStoreKind.Measurement
 }

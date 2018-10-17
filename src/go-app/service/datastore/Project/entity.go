@@ -20,6 +20,6 @@ func (e Entity) GetKind() string {
 }
 
 // GetScheduleDuration gets schedule value as time.Duration.
-func (_this Entity) GetScheduleDuration() time.Duration {
-	return time.Duration(_this.Schedule) * time.Second
+func (e Entity) GetScheduleDuration() time.Duration {
+	return time.Duration(e.Schedule) * time.Second
 }

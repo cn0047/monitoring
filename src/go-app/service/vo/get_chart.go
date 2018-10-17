@@ -16,37 +16,37 @@ type GetChartVO struct {
 }
 
 // GetName {@inheritdoc}
-func (_this GetChartVO) GetName() string {
+func (vo GetChartVO) GetName() string {
 	return "GetChartVO"
 }
 
 // IsValid {@inheritdoc}
-func (_this GetChartVO) IsValid() bool {
-	return _this.isValidProject() && _this.isValidLimit()
+func (vo GetChartVO) IsValid() bool {
+	return vo.isValidProject() && vo.isValidLimit()
 }
 
-func (_this GetChartVO) isValidProject() bool {
+func (vo GetChartVO) isValidProject() bool {
 	re := regexp.MustCompile(`(?i)^[\w\d-]+$`)
-	return re.MatchString(_this.Project)
+	return re.MatchString(vo.Project)
 }
 
-func (_this GetChartVO) isValidLimit() bool {
+func (vo GetChartVO) isValidLimit() bool {
 	re := regexp.MustCompile(`(?i)^[\d]+$`)
-	return re.MatchString(_this.LimitRaw)
+	return re.MatchString(vo.LimitRaw)
 }
 
 // Init performs initialization of this ValueObject:
 // 1) converts data from different data-types.
-func (_this *GetChartVO) Init() {
-	if _this.isValidLimit() {
-		_this.setLimit()
+func (vo *GetChartVO) Init() {
+	if vo.isValidLimit() {
+		vo.setLimit()
 	}
 }
 
-func (_this *GetChartVO) setLimit() {
-	v, err := strconv.Atoi(_this.LimitRaw)
+func (vo *GetChartVO) setLimit() {
+	v, err := strconv.Atoi(vo.LimitRaw)
 	if err != nil {
 		panic(ERR.Sys(err))
 	}
-	_this.Limit = v
+	vo.Limit = v
 }

@@ -8,11 +8,11 @@ type CreateVO struct {
 }
 
 // GetName {@inheritdoc}
-func (_this CreateVO) GetName() string {
+func (vo CreateVO) GetName() string {
 	return "Measurement.CreateVO"
 }
 
 // IsValid {@inheritdoc}
-func (_this CreateVO) IsValid() bool {
+func (vo CreateVO) IsValid() bool {
 	return true
 }
