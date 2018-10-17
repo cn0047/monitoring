@@ -1,29 +1,36 @@
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{.title}}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/static/monitoring.ico">
-    <link rel="stylesheet" type="text/css" href="/static/s/main.css?v2">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.title}}</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/static/monitoring.ico">
+  <link rel="stylesheet" type="text/css" href="/static/s/main.css?v2">
 </head>
 <body>
 <div id="nav">
-    <div class="dropdown">
-        <div class="dropbtn">{{.title}}</div>
-        <div class="dropdown-content">
-            <div>This is {{.title}}.</div>
-        </div>
+  <div class="dropdown">
+    <div class="dropbtn">{{.title}}</div>
+    <div class="dropdown-content">
+      <div>This is {{.title}}.</div>
     </div>
-    <a class="pull-right green" href="https://github.com/cn007b/monitoring">Fork me on GitHub </a>
+  </div>
+  <a class="pull-right green" href="https://github.com/cn007b/monitoring">Fork me on GitHub </a>
 </div>
 <div id="root">
-    <div class="charts">
-        <div class="row">
-            <div id="chartRT" class="chart"></div>
-            <div id="chartRC" class="chart"></div>
-        </div>
+  <div class="charts">
+    <div class="row">
+      <div id="chartRT" class="chart"></div>
+      <div id="chartRC" class="chart"></div>
     </div>
+  </div>
 </div>
 <script type="text/javascript" src="/static/js/google.charts.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{.googleAnalyticsID}}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', {{.googleAnalyticsID}});
+</script>
 <script type="text/javascript" src="/static/js/main.js"></script>
 </body>
 </html>
