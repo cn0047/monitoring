@@ -37,8 +37,14 @@ func GetList(ctx context.Context, vob vo.GetChartVO) []Entity {
 	kind := DataStoreKind.Measurement
 	query := datastore.NewQuery(kind).
 		Filter("project =", vob.Project).
-		Order("-at").
-		Limit(vob.Limit)
+		Order("-at")
+
+	if !vob.TimeRangeStart.IsZero() {
+		query = query.Filter("at >=", vob.TimeRangeStart)
+	}
+	if vob.Limit > 0 {
+		query = query.Limit(vob.Limit)
+	}
 
 	data := make([]Entity, 0)
 	gcd.MustGetAll(ctx, query, &data)

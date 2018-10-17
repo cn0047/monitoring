@@ -3,50 +3,62 @@ package vo
 import (
 	"regexp"
 	"strconv"
+	"time"
 
+	"go-app/config/taxonomy"
 	"go-app/config/taxonomy/ERR"
 )
 
 // GetChartVO represents ValueObject which contains all possible filters
 // to get measurement entities from DataStore.
 type GetChartVO struct {
-	Project  string
-	LimitRaw string
-	Limit    int
-}
-
-// GetName {@inheritdoc}
-func (vo GetChartVO) GetName() string {
-	return "GetChartVO"
+	Project        string
+	LimitRaw       string
+	Limit          int
+	TimeRange      string
+	TimeRangeStart time.Time
 }
 
 // IsValid {@inheritdoc}
-func (vo GetChartVO) IsValid() bool {
-	return vo.isValidProject() && vo.isValidLimit()
+func (v GetChartVO) IsValid() bool {
+	return v.isValidProject() && (v.isValidLimit() || v.isValidTimeRange())
 }
 
-func (vo GetChartVO) isValidProject() bool {
+func (v GetChartVO) isValidProject() bool {
 	re := regexp.MustCompile(`(?i)^[\w\d-]+$`)
-	return re.MatchString(vo.Project)
+	return re.MatchString(v.Project)
 }
 
-func (vo GetChartVO) isValidLimit() bool {
+func (v GetChartVO) isValidLimit() bool {
 	re := regexp.MustCompile(`(?i)^[\d]+$`)
-	return re.MatchString(vo.LimitRaw)
+	return re.MatchString(v.LimitRaw)
+}
+
+func (v GetChartVO) isValidTimeRange() bool {
+	_, in := taxonomy.TimeRanges[v.TimeRange]
+	return in
 }
 
 // Init performs initialization of this ValueObject:
 // 1) converts data from different data-types.
-func (vo *GetChartVO) Init() {
-	if vo.isValidLimit() {
-		vo.setLimit()
+func (v *GetChartVO) Init() {
+	if v.isValidLimit() {
+		v.setLimit()
+	}
+	if v.isValidTimeRange() {
+		v.setTimeRangeStart()
 	}
 }
 
-func (vo *GetChartVO) setLimit() {
-	v, err := strconv.Atoi(vo.LimitRaw)
+func (v *GetChartVO) setLimit() {
+	val, err := strconv.Atoi(v.LimitRaw)
 	if err != nil {
 		panic(ERR.Sys(err))
 	}
-	vo.Limit = v
+	v.Limit = val
+}
+
+func (v *GetChartVO) setTimeRangeStart() {
+	d := taxonomy.TimeRanges[v.TimeRange]
+	v.TimeRangeStart = time.Now().Add(-d)
 }

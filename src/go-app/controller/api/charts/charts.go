@@ -1,4 +1,4 @@
-package api
+package charts
 
 import (
 	"github.com/thepkg/rest"
@@ -14,8 +14,9 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 	query := r.URL.Query()
 	vob := vo.GetChartVO{
-		Project:  query.Get("project"),
-		LimitRaw: query.Get("limit"),
+		Project:   query.Get("project"),
+		TimeRange: query.Get("timeRange"),
+		LimitRaw:  query.Get("limit"),
 	}
 	vob.Init()
 	data := chart.GetData(ctx, vob)

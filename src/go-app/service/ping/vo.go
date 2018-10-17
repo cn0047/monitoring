@@ -13,11 +13,6 @@ type VO struct {
 	Body        io.Reader
 }
 
-// GetName {@inheritdoc}
-func (vo VO) GetName() string {
-	return "ping.VO"
-}
-
 // IsValid {@inheritdoc}
 func (vo VO) IsValid() bool {
 	return true

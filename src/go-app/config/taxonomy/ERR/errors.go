@@ -8,7 +8,7 @@ import (
 
 // VOInvalid represents error for invalid ValueObject.
 func VOInvalid(vObj vo.InterfaceVO) error {
-	return fmt.Errorf(`invalid ValueObject %s`, vObj.GetName())
+	return fmt.Errorf(`invalid ValueObject: %+v`, vObj)
 }
 
 // Queue represents error related to queue actions.

@@ -11,8 +11,8 @@ import (
 func GetData(ctx context.Context, vob vo.GetChartVO) interface{} {
 	data := Measurement.GetList(ctx, vob)
 	res := map[string]interface{}{
-		"rtTitle": vob.Project + " - Response time (microseconds):",
-		"rcTitle": vob.Project + " - Response code:",
+		"rtTitle": "Response time (microseconds)",
+		"rcTitle": "Response code",
 		"rt":      makeRTData(data),
 		"rc":      makeRCData(data),
 	}

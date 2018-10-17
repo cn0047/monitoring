@@ -9,20 +9,66 @@
 <div id="nav">
   <div class="dropdown">
     <div class="dropbtn">{{.title}}</div>
-    <div class="dropdown-content">
-      <div>This is {{.title}}.</div>
-    </div>
+    {{/*<div class="dropdown-content"></div>*/}}
   </div>
   <a class="pull-right green" href="https://github.com/cn007b/monitoring">Fork me on GitHub </a>
 </div>
-<div id="root">
-  <div class="charts">
+<main id="root">
+  <div id="addForm" class="hide">
+    <p>Add new project:</p>
+    <div class="row">
+      <div class="cell pull-left">
+        <p>Name:</p>
+        <input id="name" type="text">
+        <p>URL:</p>
+        <input id="url" type="text">
+      </div>
+      <div class="cell pull-left">
+        <p>Schedule:</p>
+        <input id="schedule" type="number">
+        <p>HTTP Method:</p>
+        <select id="method">
+        {{range $m, $v := .methods}}
+            <option value="{{ $m }}">{{ $m }}</option>
+        {{end}}
+        </select>
+      </div>
+      <div class="cell pull-left">
+        <p>JSON:</p>
+          <textarea id="json" rows="4"></textarea>
+      </div>
+      <div class="cell pull-left">
+          <br><br>
+          <button id="btnSave">Save</button>
+          <button id="btnCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div id="charts">
+    <div class="params">
+      Project:
+      <select id="project">
+        {{range $prj := .projects}}
+          <option value="{{ $prj.ID }}">{{ $prj.ID }}</option>
+        {{end}}
+      </select>
+      {{/*<button id="addProject">+</button>*/}}
+      <div class="timeRange pull-right">
+        <a href="#">1h</a>
+        <a href="#">6h</a>
+        <a href="#">12h</a>
+        <a href="#">1d</a>
+        <a href="#">1w</a>
+        <a href="#">1m</a>
+        <a href="#">6w</a>
+      </div>
+    </div>
     <div class="row">
       <div id="chartRT" class="chart"></div>
       <div id="chartRC" class="chart"></div>
     </div>
   </div>
-</div>
+</main>
 <script type="text/javascript" src="/static/js/google.charts.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id={{.googleAnalyticsID}}"></script>
 <script>

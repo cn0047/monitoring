@@ -5,7 +5,8 @@ import (
 	"net/http"
 
 	cah "go-app/controller/ah"
-	capi "go-app/controller/api"
+	ccharts "go-app/controller/api/charts"
+	cprojects "go-app/controller/api/projects"
 	ccron "go-app/controller/cron"
 	chome "go-app/controller/home"
 	cworker "go-app/controller/worker"
@@ -26,8 +27,8 @@ func _ah() {
 }
 
 func api() {
-	rest.GET("/api/charts", m.API(capi.Get))
-	rest.GET("/api/charts/", m.API(capi.Get))
+	rest.GET("/api/charts", m.API(ccharts.Get))
+	rest.POST("/api/projects", m.API(cprojects.Post))
 }
 
 func cron() {

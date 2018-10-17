@@ -6,3 +6,4 @@ src/github.com
 src/go.opencensus.io
 src/golang.org
 src/google.golang.org
+src/gopkg.in

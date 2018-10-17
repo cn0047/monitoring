@@ -9,11 +9,6 @@ type CreateVO struct {
 	Schedule int
 }
 
-// GetName {@inheritdoc}
-func (vo CreateVO) GetName() string {
-	return "Project.CreateVO"
-}
-
 // IsValid {@inheritdoc}
 func (vo CreateVO) IsValid() bool {
 	return true

@@ -1,13 +1,12 @@
 body {
     margin: 0;
 }
-p {
-    border-top: 1px solid whitesmoke;
-    clear: both;
-    margin: 5px 0;
-    padding: 5px 0;
+a {
+    text-decoration: none;
 }
 #root {
+    color: #757575;
+    font-family: 'Roboto',sans-serif;
     margin: 15px;
 }
 
@@ -62,6 +61,9 @@ p {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+.pull-left {
+    float: left;
+}
 .pull-right {
     float: right;
 }
@@ -97,7 +99,50 @@ p {
 
 
 
-.charts .chart {
+#addForm {
+    margin: 10px 10px 50px 10px;
+}
+#addForm input {
+    width: 350px;
+}
+#addForm textarea {
+    width: 450px;
+}
+#addForm .cell {
+    display: block;
+    margin-right: 40px;
+}
+#addForm .row {
+    height: 80px;
+    padding: 15px;
+    margin-top: 10px;
+    border: 1px solid whitesmoke;
+}
+#addForm p {
+    margin: 0;
+}
+
+
+
+#charts .params {
+    width: 47%;
+    margin: 20px 20px 0 20px;
+}
+#charts .timeRange {
+    font-size: 16px;
+}
+#charts .timeRange a {
+    display: inline-block;
+    text-align: center;
+    width: 25px;
+}
+#charts .timeRange a:visited {
+    color: #757575;
+}
+#charts .timeRange a:active {
+    color: cornflowerblue;
+}
+#charts .chart {
     width: 47%;
     height: 330px;
     float: left;
