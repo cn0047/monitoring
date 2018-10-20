@@ -1,25 +1,34 @@
 package middleware
 
 import (
+	"fmt"
 	"github.com/thepkg/recover"
 	"github.com/thepkg/rest"
 	"golang.org/x/net/context"
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 	"net/http"
+	"strings"
 
 	"go-app/app/errors/BLError"
 	"go-app/app/errors/InvalidVOError"
+	"go-app/service/renderer"
+)
+
+const (
+	defaultErrorMessage = "Internal server error, please try again a bit later."
 )
 
 func withPanicWeb(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer recover.All(func(err interface{}) {
-			ctx := appengine.NewContext(r)
+			switch err.(type) {
+			case error:
+				ctx := appengine.NewContext(r)
+				logError(ctx, err.(error))
+			}
 
-			logError(ctx, err)
-
-			w.WriteHeader(http.StatusInternalServerError)
+			renderer.RenderHomePageWithError(w, defaultErrorMessage)
 		})
 
 		next.ServeHTTP(w, r)
@@ -29,8 +38,6 @@ func withPanicWeb(next http.HandlerFunc) http.HandlerFunc {
 func withPanicAPI(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer recover.All(func(err interface{}) {
-			ctx := appengine.NewContext(r)
-
 			switch err.(type) {
 			case *InvalidVOError.Instance:
 				voErr := err.(*InvalidVOError.Instance)
@@ -40,28 +47,27 @@ func withPanicAPI(next http.HandlerFunc) http.HandlerFunc {
 				blErr := err.(*BLError.Instance)
 				rest.Error(w, http.StatusBadRequest, blErr.Error())
 				return
+			case error:
+				ctx := appengine.NewContext(r)
+				logError(ctx, err.(error))
 			}
 
-			logError(ctx, err)
-
-			rest.Error(w, http.StatusInternalServerError, "[APIPanic] Internal server error.")
+			rest.Error(w, http.StatusInternalServerError, defaultErrorMessage)
 		})
 
 		next.ServeHTTP(w, r)
 	}
 }
 
-func logError(ctx context.Context, e interface{}) {
-	err, isError := e.(error)
-	if !isError {
-		log.Errorf(ctx, "[AppPanic] Got non-error: %+v", e)
-		return
-	}
+func logError(ctx context.Context, err error) {
+	m := fmt.Sprintf("[AppError] Unknown error: %#v", err)
 
 	if err == context.DeadlineExceeded {
-		log.Errorf(ctx, "[AppPanic] DeadlineExceeded, error: %+v", e)
-		return
+		m = fmt.Sprintf("[AppError] DeadlineExceeded, error: %+v", err)
+	}
+	if strings.HasPrefix(err.Error(), "Over quota") {
+		m = fmt.Sprintf("[AppError] Over quota error: %#v", err)
 	}
 
-	log.Errorf(ctx, "[AppPanic] Unknown error: %#v", err)
+	log.Errorf(ctx, m)
 }

@@ -16,31 +16,32 @@ import (
 // Init function to initialize all possible routes.
 func Init() {
 	_ah()
-	api()
 	cron()
 	worker()
+
 	home()
+	api()
 }
 
 func _ah() {
-	http.HandleFunc("/_ah/warmup", m.Web(cah.WarmUp))
-}
-
-func api() {
-	rest.GET("/api/v1/charts", m.API(ccharts.Get))
-	rest.POST("/api/v1/projects", m.API(cprojects.Post))
+	http.HandleFunc("/_ah/warmup", cah.WarmUp)
 }
 
 func cron() {
-	http.HandleFunc("/cron/addPingJobs", m.Web(ccron.AddPingJobs))
+	http.HandleFunc("/cron/addPingJobs", ccron.AddPingJobs)
 }
 
 func worker() {
-	http.HandleFunc("/worker/ping", m.Web(cworker.Ping))
+	http.HandleFunc("/worker/ping", cworker.Ping)
 }
 
 func home() {
 	http.HandleFunc("/", m.Web(chome.Home))
 	http.HandleFunc("/index", m.Web(chome.Home))
 	http.HandleFunc("/home", m.Web(chome.Home))
+}
+
+func api() {
+	rest.GET("/api/v1/charts", m.API(ccharts.Get))
+	rest.POST("/api/v1/projects", m.API(cprojects.Post))
 }

@@ -148,6 +148,11 @@ const submitProjectForm = function () {
 };
 
 const app = function () {
+  if (initError !== "") {
+    renderChartError(initError);
+    return;
+  }
+
   renderCharts(DEFAULT_TIME_RANGE, 0);
 };
 
