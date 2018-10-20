@@ -5,12 +5,18 @@ import (
 )
 
 const (
+	// ProjectID const for project ID (name).
+	ProjectID = "itismonitoring"
+
+	// DataStoreKindMeasurement const name for DataStore Kind.
+	DataStoreKindMeasurement = "Measurement"
+	// DataStoreKindProject const name for DataStore Kind.
+	DataStoreKindProject = "Project"
+
 	// MethodHead const for head ping service method.
 	MethodHead = "head"
-
 	// MethodGet const for get ping service method.
 	MethodGet = "get"
-
 	// MethodPost const for post ping service method.
 	MethodPost = "post"
 

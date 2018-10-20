@@ -8,12 +8,12 @@ import (
 // Only this function must be used in routes
 // and here must be registered all middlewares.
 func Web(handler http.HandlerFunc) http.HandlerFunc {
-	return withWebPanic(handler)
+	return withPanicWeb(handler)
 }
 
 // API wrapper for all "API" middlewares (REST-ful API endpoints).
 // Only this function must be used in routes
 // and here must be registered all middlewares.
 func API(handler http.HandlerFunc) http.HandlerFunc {
-	return withAPIPanic(handler)
+	return withPanicAPI(handler)
 }

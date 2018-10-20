@@ -7,13 +7,18 @@ import (
 	"google.golang.org/appengine"
 	"google.golang.org/appengine/log"
 	"net/http"
+
+	"go-app/app/errors/BLError"
+	"go-app/app/errors/InvalidVOError"
 )
 
-func withWebPanic(next http.HandlerFunc) http.HandlerFunc {
+func withPanicWeb(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer recover.All(func(err interface{}) {
 			ctx := appengine.NewContext(r)
-			f(ctx, err)
+
+			logError(ctx, err)
+
 			w.WriteHeader(http.StatusInternalServerError)
 		})
 
@@ -21,11 +26,24 @@ func withWebPanic(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func withAPIPanic(next http.HandlerFunc) http.HandlerFunc {
+func withPanicAPI(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer recover.All(func(err interface{}) {
 			ctx := appengine.NewContext(r)
-			f(ctx, err)
+
+			switch err.(type) {
+			case *InvalidVOError.Instance:
+				voErr := err.(*InvalidVOError.Instance)
+				rest.Error(w, http.StatusBadRequest, voErr.GetErrors())
+				return
+			case *BLError.Instance:
+				blErr := err.(*BLError.Instance)
+				rest.Error(w, http.StatusBadRequest, blErr.Error())
+				return
+			}
+
+			logError(ctx, err)
+
 			rest.Error(w, http.StatusInternalServerError, "[APIPanic] Internal server error.")
 		})
 
@@ -33,7 +51,7 @@ func withAPIPanic(next http.HandlerFunc) http.HandlerFunc {
 	}
 }
 
-func f(ctx context.Context, e interface{}) {
+func logError(ctx context.Context, e interface{}) {
 	err, isError := e.(error)
 	if !isError {
 		log.Errorf(ctx, "[AppPanic] Got non-error: %+v", e)
@@ -45,5 +63,5 @@ func f(ctx context.Context, e interface{}) {
 		return
 	}
 
-	log.Errorf(ctx, "[AppPanic] Unknown error: %+v", err)
+	log.Errorf(ctx, "[AppPanic] Unknown error: %#v", err)
 }

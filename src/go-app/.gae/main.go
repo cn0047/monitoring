@@ -3,11 +3,11 @@ package _gae
 import (
 	"google.golang.org/appengine"
 
-	"go-app/route"
+	"go-app/app/routes"
 )
 
 func init() {
-	route.Init()
+	routes.Init()
 
 	appengine.Main()
 }

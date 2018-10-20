@@ -1,22 +1,23 @@
 package Project
 
 import (
-	"go-app/config/taxonomy/DataStoreKind"
 	"time"
+
+	"go-app/app/config/taxonomy"
+)
+
+const (
+	// Kind contains Project kind name for DataStore.
+	Kind = taxonomy.DataStoreKindProject
 )
 
 // Entity describes Datastore project entity.
 type Entity struct {
-	ID       string `datastore:"id"` // project
+	Name     string `datastore:"name"` // DataStore Key ID
 	URL      string `datastore:"url"`
 	Method   string `datastore:"method,noindex"`
 	JSON     string `datastore:"json"`
 	Schedule int    `datastore:"schedule"` // seconds
-}
-
-// GetKind {@inheritdoc}
-func (e Entity) GetKind() string {
-	return DataStoreKind.Project
 }
 
 // GetScheduleDuration gets schedule value as time.Duration.

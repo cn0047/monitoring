@@ -9,58 +9,6 @@ a {
     font-family: 'Roboto',sans-serif;
     margin: 15px;
 }
-
-
-
-#nav {
-    background-color: whitesmoke;
-    padding: 10px;
-    border-bottom: 1px solid gainsboro;
-    color: dimgray;
-}
-#nav a {
-    text-decoration: none;
-    color: dimgray;
-}
-#nav .blue {
-    color: cornflowerblue;
-}
-#nav .green {
-    text-decoration: blink;
-    color: seagreen;
-}
-#nav div {
-    margin-right: 9px;
-}
-#nav .dropdown, div {
-    cursor: pointer;
-}
-
-
-
-.nw {
-    white-space: nowrap;
-}
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-.dropdown-content div {
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-.dropdown:hover .dropdown-content {
-    display: block;
-}
 .pull-left {
     float: left;
 }
@@ -84,9 +32,9 @@ a {
 .hide {
     display: none;
 }
-
-
-
+.nw {
+    white-space: nowrap;
+}
 .purple {
     color: #a535ae;
 }
@@ -96,37 +44,110 @@ a {
 .orange {
     color: #ff5600;
 }
+.errors {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    border-radius: .25rem;
+    color: #721c24;
+}
+.success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    border-radius: .25rem;
+    color: #155724;
+}
 
 
 
-#addForm {
+#nav {
+    background-color: whitesmoke;
+    border-bottom: 1px solid gainsboro;
+    color: dimgray;
+    padding: 10px;
+}
+#nav a {
+    color: dimgray;
+    text-decoration: none;
+}
+#nav .blue {
+    color: cornflowerblue;
+}
+#nav .green {
+    color: seagreen;
+    text-decoration: blink;
+}
+#nav div {
+    margin-right: 9px;
+}
+#nav .dropdown, div {
+    cursor: pointer;
+}
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+.dropdown-content {
+    background-color: #f9f9f9;
+    box-shadow: 4px 8px 16px 4px rgba(0,0,0,0.2);
+    display: none;
+    min-width: 160px;
+    position: absolute;
+    z-index: 1;
+}
+.dropdown-content div {
+    display: block;
+    padding: 12px 16px;
+    text-decoration: none;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+
+#projectForm {
+    color: #4a4949;
+    font-size: 16px;
     margin: 10px 10px 50px 10px;
 }
-#addForm input {
-    width: 350px;
+#projectForm section {
+    border: 1px solid whitesmoke;
+    margin-top: 10px;
+    padding: 15px;
 }
-#addForm textarea {
-    width: 450px;
+#projectForm .row {
+    display: flex;
 }
-#addForm .cell {
-    display: block;
+#projectForm .cell {
     margin-right: 40px;
 }
-#addForm .row {
-    height: 80px;
-    padding: 15px;
-    margin-top: 10px;
-    border: 1px solid whitesmoke;
+#projectForm label {
+    display: block;
+    margin: 5px;
+    width: 350px;
 }
-#addForm p {
-    margin: 0;
+#projectForm label i {
+    color: grey;
+    font-size: 14px;
+}
+#projectForm input {
+    border: 1px solid silver;
+    width: 350px;
+}
+#projectForm textarea {
+    border: 1px solid silver;
+    width: 350px;
+}
+#projectForm select {
+    border: 1px solid silver;
+    width: 350px;
 }
 
 
 
 #charts .params {
-    width: 47%;
     margin: 20px 20px 0 20px;
+    width: 47%;
 }
 #charts .timeRange {
     font-size: 16px;
@@ -142,9 +163,26 @@ a {
 #charts .timeRange a:active {
     color: cornflowerblue;
 }
-#charts .chart {
+#charts .row {
+    display: flex;
+}
+#charts .cell {
+    display: flex;
+    margin: 5px;
+    padding: 15px;
     width: 47%;
+}
+#charts .errors {
+    padding: 1px 15px;
+}
+#charts .chart {
     height: 330px;
-    float: left;
     margin: 20px;
+    text-align: center;
+    width: 100%;
+}
+#charts .loader {
+    height: 330px;
+    left: 41%;
+    position: absolute;
 }

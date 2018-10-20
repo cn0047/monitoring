@@ -28,7 +28,8 @@ func AddPingJobs(w http.ResponseWriter, r *http.Request) {
 }
 
 func isItTimeToPing(ctx context.Context, prj Project.Entity) bool {
-	lastMeasurementAt := Measurement.GetLastAt(ctx, prj.ID)
+	lastMeasurementAt := Measurement.GetLastAt(ctx, prj.Name)
 	nextMeasurementAt := lastMeasurementAt.Add(prj.GetScheduleDuration())
+
 	return time.Now().After(nextMeasurementAt)
 }

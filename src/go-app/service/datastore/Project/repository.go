@@ -4,14 +4,11 @@ import (
 	"github.com/thepkg/gcd"
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/datastore"
-
-	"go-app/config/taxonomy/DataStoreKind"
 )
 
 // GetAll gets all projects.
 func GetAll(ctx context.Context) []Entity {
-	kind := DataStoreKind.Project
-	query := datastore.NewQuery(kind)
+	query := datastore.NewQuery(Kind)
 	data := make([]Entity, 0)
 	gcd.MustGetAll(ctx, query, &data)
 

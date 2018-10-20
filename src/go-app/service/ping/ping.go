@@ -6,23 +6,19 @@ import (
 	"net/http"
 	"time"
 
-	"go-app/config/taxonomy"
-	"go-app/config/taxonomy/ERR"
+	"go-app/app/config/taxonomy"
+	"go-app/app/errors/AppError"
 	"go-app/service/datastore/Measurement"
 )
 
 // Do performs main ping action and saves result into DataStore.
 func Do(ctx context.Context, vo VO) {
-	if !vo.IsValid() {
-		panic(ERR.VOInvalid(vo))
-	}
-
 	startedAt := time.Now().UnixNano()
 	res, err := exec(ctx, vo)
 	finishedAt := time.Now().UnixNano()
 
 	if err != nil {
-		panic(ERR.Ping(err))
+		AppError.Panic(err)
 	}
 
 	saveMeasurement(ctx, vo, res, finishedAt-startedAt)
@@ -40,7 +36,7 @@ func exec(ctx context.Context, vo VO) (r *http.Response, err error) {
 }
 
 func saveMeasurement(ctx context.Context, jobVO VO, res *http.Response, took int64) {
-	vo := Measurement.CreateVO{
+	vo := Measurement.EntityVO{
 		Project:      jobVO.Project,
 		Took:         int(took / 1e6),
 		ResponseCode: res.StatusCode,

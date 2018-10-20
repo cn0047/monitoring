@@ -2,7 +2,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{.title}}</title>
-  <link rel="shortcut icon" type="image/x-icon" href="/static/monitoring.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
   <link rel="stylesheet" type="text/css" href="/static/s/main.css?v2">
 </head>
 <body>
@@ -14,45 +14,72 @@
   <a class="pull-right green" href="https://github.com/cn007b/monitoring">Fork me on GitHub </a>
 </div>
 <main id="root">
-  <div id="addForm" class="hide">
+  <div id="projectForm" class="hide">
     <p>Add new project:</p>
-    <div class="row">
-      <div class="cell pull-left">
-        <p>Name:</p>
-        <input id="name" type="text">
-        <p>URL:</p>
-        <input id="url" type="text">
+    <section>
+      <div class="row">
+        <div class="cell">
+          <p>
+            <label for="name">Name <i>(it cannot be changed later)</i></label>
+            <input id="name" type="text" value="">
+          </p>
+          <p>
+            <label for="url">URL <i>(URL to public available web resource)</i></label>
+            <input id="url" type="text" value="https://">
+          </p>
+        </div>
+        <div class="cell">
+          <p>
+            <label for="schedule">Schedule <i>(check every x minutes)</i></label>
+            <input id="schedule" type="number" value="1">
+          </p>
+          <p>
+            <label for="method">HTTP Method</label>
+            <select id="method">
+              {{range $m, $v := .methods}}
+                  <option value="{{ $m }}">{{ $m }}</option>
+              {{end}}
+            </select>
+          </p>
+        </div>
+        <div class="cell">
+          <p>
+            <label for="json">JSON <i>(JSON string payload)</i></label>
+            <textarea id="json" rows="5"></textarea>
+          </p>
+        </div>
+        <div id="projectFormErrors" class="cell hide errors">
+            <p>
+              <label>Errors</label>
+              <ul></ul>
+            </p>
+        </div>
+        <div id="projectFormSuccess" class="cell hide success">
+            <p>
+            <label>Success</label>
+            <ul>
+                <li>Your project successfully added! Soon you will see some data on charts.</li>
+            </ul>
+            </p>
+        </div>
       </div>
-      <div class="cell pull-left">
-        <p>Schedule:</p>
-        <input id="schedule" type="number">
-        <p>HTTP Method:</p>
-        <select id="method">
-        {{range $m, $v := .methods}}
-            <option value="{{ $m }}">{{ $m }}</option>
-        {{end}}
-        </select>
+      <div class="row">
+        <div class="cell">
+            <button id="projectFormBtnSave">Save</button>
+            <button id="projectFormBtnCancel">Cancel</button>
+        </div>
       </div>
-      <div class="cell pull-left">
-        <p>JSON:</p>
-          <textarea id="json" rows="4"></textarea>
-      </div>
-      <div class="cell pull-left">
-          <br><br>
-          <button id="btnSave">Save</button>
-          <button id="btnCancel">Cancel</button>
-      </div>
-    </div>
+    </section>
   </div>
-  <div id="charts">
+  <div id="charts" class="">
     <div class="params">
       Project:
-      <select id="project">
+      <select id="selectedProject">
         {{range $prj := .projects}}
-          <option value="{{ $prj.ID }}">{{ $prj.ID }}</option>
+          <option value="{{ $prj.Name }}">{{ $prj.Name }}</option>
         {{end}}
       </select>
-      <button id="addProject" class="hide">+</button>
+      <button id="addProject" class="">+</button>
       <div class="timeRange pull-right">
         <a href="#">1h</a>
         <a href="#">6h</a>
@@ -60,12 +87,23 @@
         <a href="#">1d</a>
         <a href="#">1w</a>
         <a href="#">1m</a>
-        <a href="#">6w</a>
+      </div>
+    </div>
+    <div id="chartError" class="hide">
+      <div class="row">
+          <div class="cell">
+            <div class="errors"><p></p></div>
+          </div>
       </div>
     </div>
     <div class="row">
-      <div id="chartRT" class="chart"></div>
-      <div id="chartRC" class="chart"></div>
+      <div class="cell">
+        <div id="chartRT" class="chart pull-left"></div>
+      </div>
+      <div class="cell">
+        <div id="chartRC" class="chart pull-left"></div>
+      </div>
+      <img id="loader" class="loader hide" src="static/i/loader.svg">
     </div>
   </div>
 </main>

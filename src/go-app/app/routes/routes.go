@@ -1,4 +1,4 @@
-package route
+package routes
 
 import (
 	"github.com/thepkg/rest"
@@ -27,8 +27,8 @@ func _ah() {
 }
 
 func api() {
-	rest.GET("/api/charts", m.API(ccharts.Get))
-	rest.POST("/api/projects", m.API(cprojects.Post))
+	rest.GET("/api/v1/charts", m.API(ccharts.Get))
+	rest.POST("/api/v1/projects", m.API(cprojects.Post))
 }
 
 func cron() {
@@ -40,7 +40,7 @@ func worker() {
 }
 
 func home() {
-	http.HandleFunc("/", m.Web(chome.Index))
-	http.HandleFunc("/index", m.Web(chome.Index))
-	http.HandleFunc("/home", m.Web(chome.Index))
+	http.HandleFunc("/", m.Web(chome.Home))
+	http.HandleFunc("/index", m.Web(chome.Home))
+	http.HandleFunc("/home", m.Web(chome.Home))
 }

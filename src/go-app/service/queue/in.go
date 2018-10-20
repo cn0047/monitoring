@@ -4,24 +4,24 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/taskqueue"
 
-	"go-app/config"
-	"go-app/config/taxonomy/ERR"
+	"go-app/app/config"
+	"go-app/app/errors/AppError"
 	"go-app/service/datastore/Project"
 )
 
 // AddPingJob performs add ping job into queue.
 func AddPingJob(ctx context.Context, prj Project.Entity) {
-	queueName := config.WorkerPathPing
+	queueName := config.QueueNamePing
 	params := map[string][]string{
-		"project": {prj.ID},
+		"project": {prj.Name},
 		"url":     {prj.URL},
 		"method":  {prj.Method},
 		"json":    {prj.JSON},
 	}
-	t := taskqueue.NewPOSTTask(queueName, params)
+	t := taskqueue.NewPOSTTask(config.WorkerPathPing, params)
 
-	_, err := taskqueue.Add(ctx, t, config.QueuePing)
+	_, err := taskqueue.Add(ctx, t, queueName)
 	if err != nil {
-		panic(ERR.Queue("AddInQueue project "+prj.ID, queueName, err))
+		AppError.Panicf("failed add into queue: %s project: %s, error: %s", queueName, prj.Name, err)
 	}
 }

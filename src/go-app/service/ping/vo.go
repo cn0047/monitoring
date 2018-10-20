@@ -12,8 +12,3 @@ type VO struct {
 	ContentType string
 	Body        io.Reader
 }
-
-// IsValid {@inheritdoc}
-func (vo VO) IsValid() bool {
-	return true
-}

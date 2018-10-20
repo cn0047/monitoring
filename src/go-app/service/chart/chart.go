@@ -3,16 +3,16 @@ package chart
 import (
 	"golang.org/x/net/context"
 
+	"go-app/app/vo/GetChartVO"
 	"go-app/service/datastore/Measurement"
-	"go-app/service/vo"
 )
 
 // GetData gets data for charts.
-func GetData(ctx context.Context, vob vo.GetChartVO) interface{} {
-	data := Measurement.GetList(ctx, vob)
+func GetData(ctx context.Context, vo GetChartVO.Instance) interface{} {
+	data := Measurement.GetList(ctx, vo)
 	res := map[string]interface{}{
-		"rtTitle": "Response time (microseconds)",
-		"rcTitle": "Response code",
+		"titleRT": "Response time (microseconds)",
+		"titleRC": "Response code",
 		"rt":      makeRTData(data),
 		"rc":      makeRCData(data),
 	}
