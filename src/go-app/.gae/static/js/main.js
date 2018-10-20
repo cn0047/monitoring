@@ -1,4 +1,4 @@
-const DEFAULT_TIME_RANGE = '1w';
+const DEFAULT_TIME_RANGE = '12h';
 
 const toggle = function (id) {
   const s = document.getElementById(id).style;
