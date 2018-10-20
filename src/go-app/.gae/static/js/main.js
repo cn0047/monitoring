@@ -1,24 +1,50 @@
 const DEFAULT_TIME_RANGE = '12h';
 
-const toggle = function (id) {
-  const s = document.getElementById(id).style;
-  const d = s.display;
-  s.display = (d === '' || d === 'none') ? 'block' : 'none';
-};
-
+/**
+ * Shows element by id.
+ *
+ * @param {String} id Element id.
+ */
 const show = function (id) {
   document.getElementById(id).style.display = 'block';
 };
 
+/**
+ * Hides element by id.
+ *
+ * @param {String} id Element id.
+ */
 const hide = function (id) {
   document.getElementById(id).style.display = 'none';
 };
 
+/**
+ * Returns true in case when provided parameter is object.
+ *
+ * @param {Object} o Object to inspect.
+ *
+ * @returns {boolean} True in case when provided parameter is object.
+ */
+const isObject = function (o) {
+  return typeof o === 'object' && Array.isArray(o) === false && o !== null;
+};
+
+/**
+ * Performs chart related error rendering.
+ *
+ * @param {String} error Error message.
+ */
 const renderChartError = function (error) {
   document.querySelector('#chartError p').innerHTML = error;
   show('chartError');
 };
 
+/**
+ * Performs ChartRT rendering.
+ *
+ * @param {Array} rows Array with chart rows.
+ * @param {String} title Chart title.
+ */
 const renderChartRT = function (rows, title) {
   if (rows.length === 0) {
     document.getElementById('chartRT').innerHTML = 'No data.';
@@ -37,6 +63,12 @@ const renderChartRT = function (rows, title) {
   chart.draw(dt, google.charts.Line.convertOptions(options));
 };
 
+/**
+ * Performs ChartRC rendering.
+ *
+ * @param {Array} rows Array with chart rows.
+ * @param {String} title Chart title.
+ */
 const renderChartRC = function (rows, title) {
   if (rows.length === 0) {
     document.getElementById('chartRC').innerHTML = 'No data.';
@@ -55,7 +87,12 @@ const renderChartRC = function (rows, title) {
   chart.draw(dt, google.charts.Line.convertOptions(options));
 };
 
-const fillCharts = function (payload) {
+/**
+ * Performs charts's payload processing.
+ *
+ * @param {Object} payload Chart's payload data from server.
+ */
+const handleChartsPayload = function (payload) {
   if (payload.error !== null) {
     renderChartError(payload.error.data);
     hide('loader');
@@ -72,18 +109,29 @@ const fillCharts = function (payload) {
   hide('loader');
 };
 
+/**
+ * Performs charts rendering.
+ *
+ * Facade function which performs:
+ * fetch charts data related to current project from server
+ * and render charts data or error message.
+ *
+ * @param {String} timeRange Time range string.
+ * @param {Number} limit Limit value.
+ */
 const renderCharts = function (timeRange, limit) {
   show('loader');
   const prj = document.getElementById('selectedProject').value;
   fetch(`/api/v1/charts?project=${prj}&timeRange=${timeRange}&limit=${limit}`)
     .then(res => res.json())
-    .then(payload => fillCharts(payload));
+    .then(payload => handleChartsPayload(payload));
 };
 
-const isObject = function (o) {
-  return typeof o === 'object' && Array.isArray(o) === false && o !== null;
-};
-
+/**
+ * Performs project's errors rendering.
+ *
+ * @param {Object|string} errors Errors object or error message.
+ */
 const renderProjectFormErrors = function (errors) {
   const ul = document.querySelector('#projectFormErrors ul');
   ul.innerHTML = '';
@@ -104,6 +152,11 @@ const renderProjectFormErrors = function (errors) {
   show('projectFormErrors');
 };
 
+/**
+ * Adds new project name into dropdown with all available projects.
+ *
+ * @param {string} name project name.
+ */
 const addProjectIntoSelect = function (name) {
   const o = document.createElement('option');
   o.value = name;
@@ -114,6 +167,12 @@ const addProjectIntoSelect = function (name) {
   s.value = name;
 };
 
+/**
+ * Performs payload processing for project form.
+ *
+ * @param {String} name Project's name.
+ * @param {Object} payload Project's payload data from server.
+ */
 const handleProjectForm = function (name, payload) {
   if (payload.error !== null) {
     renderProjectFormErrors(payload.error.data);
@@ -130,6 +189,13 @@ const handleProjectForm = function (name, payload) {
   }, 3000);
 };
 
+/**
+ * Performs project form save.
+ *
+ * Facade function which performs:
+ * send request to server to create new project
+ * and perform response payload processing.
+ */
 const submitProjectForm = function () {
   const form = {
     name: document.getElementById('name').value,
@@ -147,6 +213,9 @@ const submitProjectForm = function () {
     .then(payload => handleProjectForm(form.name, payload));
 };
 
+/**
+ * Application entry point.
+ */
 const app = function () {
   if (initError !== "") {
     renderChartError(initError);
@@ -156,26 +225,31 @@ const app = function () {
   renderCharts(DEFAULT_TIME_RANGE, 0);
 };
 
-google.charts.load('current', {packages: ['line']});
-google.charts.setOnLoadCallback(app);
-
-document.getElementById('selectedProject').addEventListener('click', () => {
-  renderCharts(DEFAULT_TIME_RANGE, 0);
-});
-
+/**
+ * Handler for dropdown with projects, which performs charts re-rendering.
+ */
 document.getElementById('selectedProject').addEventListener('change', () => {
   renderCharts(DEFAULT_TIME_RANGE, 0);
 });
 
+/**
+ * Handler for "time range" quick links.
+ */
 document.querySelectorAll('#charts .timeRange a').forEach((el) => {
   el.addEventListener('click', (e) => renderCharts(e.target.text, 0));
 });
 
+/**
+ * Handler to open project's form.
+ */
 document.getElementById('addProject').addEventListener('click', () => {
   hide('charts');
   show('projectForm');
 });
 
+/**
+ * Handler to close project's form.
+ */
 document.getElementById('projectFormBtnCancel').addEventListener('click', () => {
   hide('projectForm');
   hide('projectFormErrors');
@@ -183,4 +257,12 @@ document.getElementById('projectFormBtnCancel').addEventListener('click', () => 
   show('charts');
 });
 
+/**
+ * Handler to save project's form.
+ */
 document.getElementById('projectFormBtnSave').addEventListener('click', submitProjectForm);
+
+
+
+google.charts.load('current', {packages: ['line']});
+google.charts.setOnLoadCallback(app);
