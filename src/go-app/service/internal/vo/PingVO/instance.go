@@ -1,11 +1,11 @@
-package ping
+package PingVO
 
 import (
 	"io"
 )
 
-// VO represents ValueObject which is required to perform ping action.
-type VO struct {
+// Instance represents ValueObject which is required to perform ping action.
+type Instance struct {
 	Project     string
 	URL         string
 	Method      string

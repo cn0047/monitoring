@@ -4,6 +4,8 @@ import (
 	"github.com/thepkg/rest"
 	"net/http"
 
+	"go-app/app/config"
+
 	cah "go-app/controller/ah"
 	ccharts "go-app/controller/api/charts"
 	cprojects "go-app/controller/api/projects"
@@ -32,7 +34,8 @@ func cron() {
 }
 
 func worker() {
-	http.HandleFunc("/worker/ping", cworker.Ping)
+	// "/worker/ping"
+	http.HandleFunc(config.WorkerPathPing, cworker.Ping)
 }
 
 func home() {

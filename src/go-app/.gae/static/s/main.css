@@ -157,11 +157,14 @@ a {
     text-align: center;
     width: 25px;
 }
-#charts .timeRange a:visited {
+#charts .timeRange a:hover {
+    text-decoration: underline;
+}
+#charts .timeRangeDefault {
     color: #757575;
 }
-#charts .timeRange a:active {
-    color: cornflowerblue;
+#charts .timeRangeActive {
+    color: red;
 }
 #charts .row {
     display: flex;

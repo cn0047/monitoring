@@ -5,8 +5,8 @@ import (
 	"google.golang.org/appengine"
 	"net/http"
 
-	"go-app/app/vo/AddProjectVO"
-	"go-app/service/datastore/Project"
+	"go-app/app/vo/ProjectVO"
+	"go-app/service/project"
 )
 
 // Post represents REST-API endpoint to create new project.
@@ -16,9 +16,8 @@ func Post(w http.ResponseWriter, r *http.Request) {
 	params := make(map[string]string)
 	rest.MustUnmarshalBody(r, &params)
 
-	vo1 := AddProjectVO.New(params)
-	vo2 := Project.EntityVO(vo1)
-	Project.Add(ctx, vo2)
+	vo := ProjectVO.New(params)
+	project.Add(ctx, vo)
 
-	rest.Success(w, http.StatusOK, vo1)
+	rest.Success(w, http.StatusOK, vo)
 }

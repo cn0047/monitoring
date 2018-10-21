@@ -2,13 +2,9 @@ package cron
 
 import (
 	"fmt"
-	"golang.org/x/net/context"
 	"google.golang.org/appengine"
 	"net/http"
-	"time"
 
-	"go-app/service/datastore/Measurement"
-	"go-app/service/datastore/Project"
 	"go-app/service/queue"
 )
 
@@ -16,20 +12,8 @@ import (
 func AddPingJobs(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	projects := Project.GetAll(ctx)
-	for _, prj := range projects {
-		if isItTimeToPing(ctx, prj) {
-			queue.AddPingJob(ctx, prj)
-		}
-	}
+	queue.AddPingJobs(ctx)
 
 	w.WriteHeader(http.StatusNoContent)
 	fmt.Fprint(w, "")
-}
-
-func isItTimeToPing(ctx context.Context, prj Project.Entity) bool {
-	lastMeasurementAt := Measurement.GetLastAt(ctx, prj.Name)
-	nextMeasurementAt := lastMeasurementAt.Add(prj.GetScheduleDuration())
-
-	return time.Now().After(nextMeasurementAt)
 }

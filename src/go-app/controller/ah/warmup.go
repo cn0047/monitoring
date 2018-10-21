@@ -7,7 +7,8 @@ import (
 	"net/http"
 
 	"go-app/app/config/taxonomy"
-	"go-app/service/datastore/Project"
+	"go-app/app/vo/ProjectVO"
+	"go-app/service/project"
 )
 
 // WarmUp internal AppEngine controller for init purposes.
@@ -21,12 +22,12 @@ func WarmUp(w http.ResponseWriter, r *http.Request) {
 }
 
 func initRealTimeLog(ctx context.Context) {
-	vo := Project.EntityVO{
-		Name:     "realtimelog-health-check",
-		URL:      "https://realtimelog.herokuapp.com/health-check",
-		Method:   taxonomy.MethodPost,
-		JSON:     `{"msg":"monitoring-ping-1"}`,
-		Schedule: 250,
-	}
-	Project.Update(ctx, vo)
+	vo := ProjectVO.New(map[string]string{
+		"name":     "realtimelog-health-check",
+		"url":      "https://realtimelog.herokuapp.com/health-check",
+		"method":   taxonomy.MethodPost,
+		"json":     `{"msg":"monitoring-ping-1"}`,
+		"schedule": "300",
+	})
+	project.Update(ctx, vo)
 }

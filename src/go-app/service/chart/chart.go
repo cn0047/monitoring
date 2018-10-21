@@ -4,7 +4,7 @@ import (
 	"golang.org/x/net/context"
 
 	"go-app/app/vo/GetChartVO"
-	"go-app/service/datastore/Measurement"
+	"go-app/service/internal/datastore/Measurement"
 )
 
 // GetData gets data for charts.

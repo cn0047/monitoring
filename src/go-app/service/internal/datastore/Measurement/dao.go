@@ -5,6 +5,8 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/datastore"
 	"time"
+
+	"go-app/service/internal/vo/MeasurementVO"
 )
 
 // Get gets measurement entity.
@@ -12,7 +14,7 @@ func Get() {
 }
 
 // Add creates new measurement entity in DataStore.
-func Add(ctx context.Context, vo EntityVO) {
+func Add(ctx context.Context, vo MeasurementVO.Instance) {
 	m := Entity{
 		Project:      vo.Project,
 		At:           time.Now().UTC(),

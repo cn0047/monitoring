@@ -6,7 +6,7 @@ import (
 	"google.golang.org/appengine/datastore"
 
 	"go-app/app/errors/AppError"
-	"go-app/app/errors/BLError"
+	"go-app/app/vo/ProjectVO"
 )
 
 // Get gets project entity.
@@ -26,33 +26,24 @@ func Get(ctx context.Context, KeyID string) *Entity {
 }
 
 // Add creates new project entity in DataStore.
-func Add(ctx context.Context, vo EntityVO) {
-	e := Get(ctx, vo.Name)
-	if e != nil {
-		BLError.Panicf("Project name (ID) is not available.")
-	}
-
-	prj := Entity{
-		Name:     vo.Name,
-		URL:      vo.URL,
-		Method:   vo.Method,
-		JSON:     vo.JSON,
-		Schedule: vo.Schedule,
-	}
-	key := datastore.NewKey(ctx, Kind, vo.Name, 0, nil)
-	gcd.MustPut(ctx, key, &prj)
+func Add(ctx context.Context, vo ProjectVO.Instance) {
+	put(ctx, vo)
 }
 
 // Update performs update for project entity.
-func Update(ctx context.Context, vo EntityVO) {
+func Update(ctx context.Context, vo ProjectVO.Instance) {
+	put(ctx, vo)
+}
+
+func put(ctx context.Context, vo ProjectVO.Instance) {
 	prj := Entity{
-		Name:     vo.Name,
-		URL:      vo.URL,
-		Method:   vo.Method,
-		JSON:     vo.JSON,
-		Schedule: vo.Schedule,
+		Name:     vo.GetName(),
+		URL:      vo.GetURL(),
+		Method:   vo.GetMethod(),
+		JSON:     vo.GetJSON(),
+		Schedule: vo.GetSchedule(),
 	}
-	key := datastore.NewKey(ctx, Kind, vo.Name, 0, nil)
+	key := datastore.NewKey(ctx, Kind, vo.GetName(), 0, nil)
 	gcd.MustPut(ctx, key, &prj)
 }
 

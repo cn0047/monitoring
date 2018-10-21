@@ -8,12 +8,12 @@ import (
 
 	"go-app/app/config"
 	"go-app/app/config/taxonomy"
-	"go-app/service/datastore/Project"
+	"go-app/service/project"
 )
 
 // RenderHomePage performs render home page.
 func RenderHomePage(ctx context.Context, w http.ResponseWriter) {
-	projects := Project.GetAll(ctx)
+	projects := project.GetAll(ctx)
 	params := makeTemplateParams(projects, "")
 	render(w, params)
 }

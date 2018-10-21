@@ -6,7 +6,7 @@ import (
 
 	"go-app/app/config"
 	"go-app/app/errors/AppError"
-	"go-app/service/datastore/Project"
+	"go-app/service/internal/datastore/Project"
 )
 
 // AddPingJob performs add ping job into queue.

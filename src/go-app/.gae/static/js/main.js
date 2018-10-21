@@ -1,5 +1,3 @@
-const DEFAULT_TIME_RANGE = '12h';
-
 /**
  * Shows element by id.
  *
@@ -214,6 +212,15 @@ const submitProjectForm = function () {
 };
 
 /**
+ * Gets current "time range" value.
+ *
+ * @returns {String} Current "time range" value.
+ */
+const getCurrentTimeRange = function () {
+  return document.querySelector('#charts .timeRangeActive').text;
+};
+
+/**
  * Application entry point.
  */
 const app = function () {
@@ -222,21 +229,27 @@ const app = function () {
     return;
   }
 
-  renderCharts(DEFAULT_TIME_RANGE, 0);
+  renderCharts(getCurrentTimeRange(), 0);
 };
 
 /**
  * Handler for dropdown with projects, which performs charts re-rendering.
  */
 document.getElementById('selectedProject').addEventListener('change', () => {
-  renderCharts(DEFAULT_TIME_RANGE, 0);
+  renderCharts(getCurrentTimeRange(), 0);
 });
 
 /**
  * Handler for "time range" quick links.
  */
 document.querySelectorAll('#charts .timeRange a').forEach((el) => {
-  el.addEventListener('click', (e) => renderCharts(e.target.text, 0));
+  el.addEventListener('click', (e) => {
+    document.querySelectorAll('#charts .timeRange a').forEach((aEl) => {
+      aEl.className = 'timeRangeDefault';
+    });
+    e.target.className = 'timeRangeActive';
+    renderCharts(e.target.text, 0);
+  });
 });
 
 /**

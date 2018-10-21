@@ -28,14 +28,17 @@ func GetLastAt(ctx context.Context, project string) time.Time {
 // GetList gets list of measurement entities by filters provided in VO.
 func GetList(ctx context.Context, vo GetChartVO.Instance) []Entity {
 	query := datastore.NewQuery(Kind).
-		Filter("project =", vo.Project).
+		Filter("project =", vo.GetProject()).
 		Order("-at")
 
-	if !vo.TimeRangeStart.IsZero() {
-		query = query.Filter("at >=", vo.TimeRangeStart)
+	timeRangeStart := vo.GetTimeRangeStart()
+	if !timeRangeStart.IsZero() {
+		query = query.Filter("at >=", timeRangeStart)
 	}
-	if vo.Limit > 0 {
-		query = query.Limit(vo.Limit)
+
+	limit := vo.GetLimit()
+	if limit > 0 {
+		query = query.Limit(limit)
 	}
 
 	data := make([]Entity, 0)

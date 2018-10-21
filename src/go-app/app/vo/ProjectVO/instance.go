@@ -1,4 +1,4 @@
-package AddProjectVO
+package ProjectVO
 
 import (
 	"strconv"
@@ -18,16 +18,18 @@ var (
 	}
 )
 
-// Instance represents ValueObject to add project.
+// Instance represents ValueObject for Project entity.
 type Instance struct {
-	Name     string
-	URL      string
-	Method   string
-	JSON     string
-	Schedule int // seconds
+	name     string
+	url      string
+	method   string
+	json     string
+	schedule int // seconds
 }
 
-// New gets new AddProjectVO instance.
+// New gets new ProjectVO instance.
+// This ValueObject contains all possible fields
+// which may be stored in DataStore.
 func New(data map[string]string) Instance {
 	vo := Instance{}
 	vo.initFromMap(data)
@@ -56,7 +58,7 @@ func (i *Instance) initName(data map[string]string, err *InvalidVOError.Instance
 		return
 	}
 	if validator.IsProjectName(v) {
-		i.Name = v
+		i.name = v
 	} else {
 		err.SetError("name", "Invalid name.")
 	}
@@ -69,7 +71,7 @@ func (i *Instance) initURL(data map[string]string, err *InvalidVOError.Instance)
 		return
 	}
 	if validator.IsURL(v) {
-		i.URL = v
+		i.url = v
 	} else {
 		err.SetError("url", "Invalid url.")
 	}
@@ -82,7 +84,7 @@ func (i *Instance) initMethod(data map[string]string, err *InvalidVOError.Instan
 		return
 	}
 	if validator.IsMethod(v) {
-		i.Method = v
+		i.method = v
 	} else {
 		err.SetError("method", "Invalid method.")
 	}
@@ -91,7 +93,7 @@ func (i *Instance) initMethod(data map[string]string, err *InvalidVOError.Instan
 func (i *Instance) initJSON(data map[string]string, err *InvalidVOError.Instance) {
 	v, exists := data[params["json"]]
 	if exists && v != "" {
-		i.JSON = v
+		i.json = v
 	}
 }
 
@@ -107,11 +109,36 @@ func (i *Instance) initSchedule(data map[string]string, err *InvalidVOError.Inst
 			AppError.Panic(er)
 		}
 		if val > 0 {
-			i.Schedule = val * 60 // from minutes to seconds
+			i.schedule = val * 60 // from minutes to seconds
 		} else {
 			err.SetError("schedule", "Invalid schedule, must be greater than 0.")
 		}
 	} else {
 		err.SetError("schedule", "Invalid schedule.")
 	}
+}
+
+// GetName gets field name value.
+func (i Instance) GetName() string {
+	return i.name
+}
+
+// GetName gets field url value.
+func (i Instance) GetURL() string {
+	return i.url
+}
+
+// GetName gets field method value.
+func (i Instance) GetMethod() string {
+	return i.method
+}
+
+// GetName gets field json value.
+func (i Instance) GetJSON() string {
+	return i.json
+}
+
+// GetName gets field schedule value.
+func (i Instance) GetSchedule() int {
+	return i.schedule
 }

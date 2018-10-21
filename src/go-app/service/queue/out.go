@@ -5,6 +5,7 @@ import (
 	"golang.org/x/net/context"
 	"net/http"
 
+	"go-app/service/internal/vo/PingVO"
 	"go-app/service/ping"
 )
 
@@ -14,7 +15,7 @@ func ProcessPingJob(ctx context.Context, r *http.Request) {
 	ping.Do(ctx, vo)
 }
 
-func makeVO(r *http.Request) ping.VO {
+func makeVO(r *http.Request) PingVO.Instance {
 	json := r.FormValue("json")
 
 	contentType := ""
@@ -22,7 +23,7 @@ func makeVO(r *http.Request) ping.VO {
 		contentType = "application/json"
 	}
 
-	vo := ping.VO{
+	vo := PingVO.Instance{
 		Project:     r.FormValue("project"),
 		URL:         r.FormValue("url"),
 		Method:      r.FormValue("method"),

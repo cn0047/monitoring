@@ -23,9 +23,9 @@ var (
 // This ValueObject contains all possible filters
 // to get measurement entities from DataStore.
 type Instance struct {
-	Project        string
-	Limit          int
-	TimeRangeStart time.Time
+	project        string
+	limit          int
+	timeRangeStart time.Time
 }
 
 // New gets new GetChartVO instance.
@@ -51,7 +51,7 @@ func (i *Instance) initFromGetRequest(r *http.Request) {
 
 func (i *Instance) initProject(v string, err *InvalidVOError.Instance) {
 	if validator.IsProjectName(v) {
-		i.Project = v
+		i.project = v
 	} else {
 		err.SetError("project", "Invalid project name.")
 	}
@@ -63,7 +63,7 @@ func (i *Instance) initLimit(v string, err *InvalidVOError.Instance) {
 		if err != nil {
 			AppError.Panic(err)
 		}
-		i.Limit = val
+		i.limit = val
 	} else {
 		err.SetError("limit", "Invalid limit.")
 	}
@@ -72,8 +72,23 @@ func (i *Instance) initLimit(v string, err *InvalidVOError.Instance) {
 func (i *Instance) initTimeRange(v string, err *InvalidVOError.Instance) {
 	if validator.IsTimeRange(v) {
 		d := taxonomy.TimeRanges[v]
-		i.TimeRangeStart = time.Now().Add(-d)
+		i.timeRangeStart = time.Now().UTC().Add(-d)
 	} else {
 		err.SetError("timeRange", "Invalid timeRange.")
 	}
+}
+
+// GetProject gets field project value.
+func (i Instance) GetProject() string {
+	return i.project
+}
+
+// GetLimit gets field limit value.
+func (i Instance) GetLimit() int {
+	return i.limit
+}
+
+// GetTimeRangeStart gets field timeRangeStart value.
+func (i Instance) GetTimeRangeStart() time.Time {
+	return i.timeRangeStart
 }

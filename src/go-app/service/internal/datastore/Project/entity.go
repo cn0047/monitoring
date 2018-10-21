@@ -13,11 +13,11 @@ const (
 
 // Entity describes Datastore project entity.
 type Entity struct {
-	Name     string `datastore:"name"` // DataStore Key ID
-	URL      string `datastore:"url"`
-	Method   string `datastore:"method,noindex"`
-	JSON     string `datastore:"json"`
-	Schedule int    `datastore:"schedule"` // seconds
+	Name     string `datastore:"name" json:"name"` // DataStore Key ID
+	URL      string `datastore:"url" json:"url"`
+	Method   string `datastore:"method,noindex" json:"method"`
+	JSON     string `datastore:"json" json:"json"`
+	Schedule int    `datastore:"schedule" json:"schedule"` // seconds
 }
 
 // GetScheduleDuration gets schedule value as time.Duration.

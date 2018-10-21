@@ -13,6 +13,11 @@ const (
 	// DataStoreKindProject const name for DataStore Kind.
 	DataStoreKindProject = "Project"
 
+	// CacheKeyProjectsAll cache key for all projects slice.
+	CacheKeyProjectsAll = "ProjectsAll"
+	// CacheKeyPrefixMeasurementLastAt cache key prefix for lastAt measurement time.
+	CacheKeyPrefixMeasurementLastAt = "MeasurementLastAt"
+
 	// MethodHead const for head ping service method.
 	MethodHead = "head"
 	// MethodGet const for get ping service method.

@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"cloud.google.com/go/errorreporting"
 	"fmt"
 	"github.com/thepkg/recover"
 	"github.com/thepkg/rest"
@@ -10,6 +11,7 @@ import (
 	"net/http"
 	"strings"
 
+	"go-app/app/config/taxonomy"
 	"go-app/app/errors/BLError"
 	"go-app/app/errors/InvalidVOError"
 	"go-app/service/renderer"
@@ -69,5 +71,24 @@ func logError(ctx context.Context, err error) {
 		m = fmt.Sprintf("[AppError] Over quota error: %#v", err)
 	}
 
-	log.Errorf(ctx, m)
+	logToStackDriver(ctx, m)
+}
+
+func logToStackDriver(ctx context.Context, message string) {
+	errorClient, err := errorreporting.NewClient(ctx, taxonomy.ProjectID, errorreporting.Config{
+		ServiceName: "default",
+		OnError: func(err error) {
+			log.Errorf(ctx, "[AppError] StackDriver client error: %#v, for message: %s", err, message)
+		},
+	})
+	if err != nil {
+		f := "[AppError] Filed to create StackDriver client, error: %#v, for message: %s"
+		log.Errorf(ctx, f, err, message)
+		return
+	}
+
+	defer errorClient.Close()
+	defer errorClient.Flush()
+
+	errorClient.Report(errorreporting.Entry{Error: fmt.Errorf(message)})
 }
