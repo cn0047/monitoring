@@ -1,8 +1,10 @@
 .data
+node_modules
 pkg
 src/cloud.google.com
 src/contrib.go.opencensus.io
 src/github.com
+src/go-app/.gae/static/main.min.js
 src/go.opencensus.io
 src/golang.org
 src/google.golang.org
