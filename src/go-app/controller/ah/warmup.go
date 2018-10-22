@@ -27,7 +27,7 @@ func initRealTimeLog(ctx context.Context) {
 		"url":      "https://realtimelog.herokuapp.com/health-check",
 		"method":   taxonomy.MethodPost,
 		"json":     `{"msg":"monitoring-ping-1"}`,
-		"schedule": "300",
+		"schedule": "5",
 	})
 	project.Update(ctx, vo)
 }

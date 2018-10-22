@@ -123,22 +123,22 @@ func (i Instance) GetName() string {
 	return i.name
 }
 
-// GetName gets field url value.
+// GetURL gets field url value.
 func (i Instance) GetURL() string {
 	return i.url
 }
 
-// GetName gets field method value.
+// GetMethod gets field method value.
 func (i Instance) GetMethod() string {
 	return i.method
 }
 
-// GetName gets field json value.
+// GetJSON gets field json value.
 func (i Instance) GetJSON() string {
 	return i.json
 }
 
-// GetName gets field schedule value.
+// GetSchedule gets field schedule value.
 func (i Instance) GetSchedule() int {
 	return i.schedule
 }

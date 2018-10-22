@@ -21,7 +21,7 @@ func InvalidateCache(ctx context.Context) {
 	}
 }
 
-// SetLastAt gets all projects slice from cache.
+// GetProjectsAll gets all projects slice from cache.
 func GetProjectsAll(ctx context.Context) []Project.Entity {
 	item, err := memcache.Get(ctx, taxonomy.CacheKeyProjectsAll)
 	if err == memcache.ErrCacheMiss {
