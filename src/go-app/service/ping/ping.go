@@ -26,6 +26,12 @@ func Do(ctx context.Context, vo PingVO.Instance) {
 	saveMeasurement(ctx, vo, res, finishedAt-startedAt)
 }
 
+// Try performs try to ping project's URL.
+func Try(ctx context.Context, vo PingVO.Instance) error {
+	_, err := exec(ctx, vo)
+	return err
+}
+
 func exec(ctx context.Context, vo PingVO.Instance) (r *http.Response, err error) {
 	client := urlfetch.Client(ctx)
 

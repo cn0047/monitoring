@@ -18,7 +18,7 @@ func AddPingJob(ctx context.Context, prj Project.Entity) {
 		"method":  {prj.Method},
 		"json":    {prj.JSON},
 	}
-	t := taskqueue.NewPOSTTask(config.WorkerPathPing, params)
+	t := taskqueue.NewPOSTTask(config.WorkerPathPing+"/"+prj.Name, params)
 
 	_, err := taskqueue.Add(ctx, t, queueName)
 	if err != nil {
