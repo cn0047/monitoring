@@ -1,4 +1,4 @@
-package _gae
+package main
 
 import (
 	"google.golang.org/appengine"
@@ -6,7 +6,7 @@ import (
 	"go-app/app/routes"
 )
 
-func init() {
+func main() {
 	routes.Init()
 
 	appengine.Main()
