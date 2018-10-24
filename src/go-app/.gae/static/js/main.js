@@ -184,6 +184,7 @@ const handleProjectForm = function (name, payload) {
     hide('projectFormSuccess');
     hide('projectForm');
     show('charts');
+    renderCharts(getCurrentTimeRange(), 0);
   }, 3000);
 };
 
