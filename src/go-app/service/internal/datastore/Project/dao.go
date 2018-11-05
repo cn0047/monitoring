@@ -10,19 +10,19 @@ import (
 )
 
 // Get gets project entity.
-func Get(ctx context.Context, KeyID string) *Entity {
+func Get(ctx context.Context, KeyID string) Entity {
 	k := datastore.NewKey(ctx, Kind, KeyID, 0, nil)
 	e := Entity{}
 
 	err := datastore.Get(ctx, k, &e)
 	if err == datastore.ErrNoSuchEntity {
-		return nil
+		return e
 	}
 	if err != nil {
 		AppError.Panic(err)
 	}
 
-	return &e
+	return e
 }
 
 // Add creates new project entity in DataStore.

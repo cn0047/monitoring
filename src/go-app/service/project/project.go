@@ -17,7 +17,7 @@ import (
 // and performs cache invalidation for projects slice in cache.
 func Add(ctx context.Context, vo ProjectVO.Instance) {
 	e := ds.Get(ctx, vo.GetName())
-	if e != nil {
+	if e != (ds.Entity{}) {
 		BLError.Panicf("Project name (ID) is not available.")
 	}
 

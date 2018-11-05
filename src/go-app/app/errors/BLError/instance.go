@@ -10,9 +10,9 @@ type Instance struct {
 }
 
 // New creates new BLError instance.
-func New(format string, params ...interface{}) *Instance {
+func New(format string, params ...interface{}) Instance {
 	e := Instance{Msg: fmt.Sprintf(format, params...)}
-	return &e
+	return e
 }
 
 // Error gets BLError message string.
