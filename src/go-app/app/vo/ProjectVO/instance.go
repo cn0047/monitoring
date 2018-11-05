@@ -47,7 +47,7 @@ func (i *Instance) initFromMap(data map[string]string) {
 	i.initSchedule(data, err)
 
 	if !err.IsEmpty() {
-		panic(err)
+		panic(*err)
 	}
 }
 

@@ -41,8 +41,8 @@ func withPanicAPI(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer recover.All(func(err interface{}) {
 			switch err.(type) {
-			case *InvalidVOError.Instance:
-				voErr := err.(*InvalidVOError.Instance)
+			case InvalidVOError.Instance:
+				voErr := err.(InvalidVOError.Instance)
 				rest.Error(w, http.StatusBadRequest, voErr.GetErrors())
 				return
 			case BLError.Instance:

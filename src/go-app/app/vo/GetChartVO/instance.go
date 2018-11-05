@@ -45,7 +45,7 @@ func (i *Instance) initFromGetRequest(r http.Request) {
 	i.initTimeRange(query.Get(params["timeRange"]), err)
 
 	if !err.IsEmpty() {
-		panic(err)
+		panic(*err)
 	}
 }
 
