@@ -14,15 +14,15 @@ handlers:
     static_dir: static
 
   - url: /_ah/warmup
-    script: _go_app
+    script: auto
     login: admin
 
   - url: /worker/.*
-    script: _go_app
+    script: auto
     login: admin
 
   - url: /.*
-    script: _go_app
+    script: auto
 
 error_handlers:
 
