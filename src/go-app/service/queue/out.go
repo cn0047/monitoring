@@ -10,12 +10,12 @@ import (
 )
 
 // ProcessPingJob performs execution for ping job.
-func ProcessPingJob(ctx context.Context, r *http.Request) {
+func ProcessPingJob(ctx context.Context, r http.Request) {
 	vo := makeVO(r)
 	ping.Do(ctx, vo)
 }
 
-func makeVO(r *http.Request) PingVO.Instance {
+func makeVO(r http.Request) PingVO.Instance {
 	json := r.FormValue("json")
 
 	contentType := ""

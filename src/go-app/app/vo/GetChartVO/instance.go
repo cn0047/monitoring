@@ -29,14 +29,14 @@ type Instance struct {
 }
 
 // New gets new GetChartVO instance.
-func New(r *http.Request) Instance {
+func New(r http.Request) Instance {
 	vo := Instance{}
 	vo.initFromGetRequest(r)
 
 	return vo
 }
 
-func (i *Instance) initFromGetRequest(r *http.Request) {
+func (i *Instance) initFromGetRequest(r http.Request) {
 	query := r.URL.Query()
 	err := InvalidVOError.New()
 

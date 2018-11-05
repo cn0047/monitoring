@@ -23,7 +23,7 @@ func Do(ctx context.Context, vo PingVO.Instance) {
 		AppError.Panic(err)
 	}
 
-	saveMeasurement(ctx, vo, res, finishedAt-startedAt)
+	saveMeasurement(ctx, vo, *res, finishedAt-startedAt)
 }
 
 // Try performs try to ping project's URL.
@@ -43,7 +43,7 @@ func exec(ctx context.Context, vo PingVO.Instance) (r *http.Response, err error)
 	return client.Post(vo.URL, vo.ContentType, vo.Body)
 }
 
-func saveMeasurement(ctx context.Context, jobVO PingVO.Instance, res *http.Response, took int64) {
+func saveMeasurement(ctx context.Context, jobVO PingVO.Instance, res http.Response, took int64) {
 	vo := MeasurementVO.Instance{
 		Project:      jobVO.Project,
 		Took:         int(took / 1e6),

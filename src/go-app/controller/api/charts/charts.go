@@ -13,7 +13,7 @@ import (
 func Get(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	vo := GetChartVO.New(r)
+	vo := GetChartVO.New(*r)
 	data := chart.GetData(ctx, vo)
 
 	rest.Success(w, http.StatusOK, data)

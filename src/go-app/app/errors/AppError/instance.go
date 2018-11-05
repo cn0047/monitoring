@@ -16,6 +16,6 @@ func New(format string, params ...interface{}) *Instance {
 }
 
 // Error gets AppError message string.
-func (i *Instance) Error() string {
+func (i Instance) Error() string {
 	return i.Msg
 }

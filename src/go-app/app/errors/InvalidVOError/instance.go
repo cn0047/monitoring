@@ -28,7 +28,7 @@ func (i Instance) IsEmpty() bool {
 }
 
 // Error gets InvalidVOError error message string.
-func (i *Instance) Error() string {
+func (i Instance) Error() string {
 	msg := "Got invalid data. "
 	for field, err := range i.errors {
 		msg += fmt.Sprintf("%s: %s;", field, err)

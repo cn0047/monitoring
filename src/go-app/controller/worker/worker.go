@@ -12,7 +12,7 @@ import (
 func Ping(w http.ResponseWriter, r *http.Request) {
 	ctx := appengine.NewContext(r)
 
-	queue.ProcessPingJob(ctx, r)
+	queue.ProcessPingJob(ctx, *r)
 
 	w.WriteHeader(http.StatusNoContent)
 	fmt.Fprint(w, "")
