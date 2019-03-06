@@ -10,5 +10,5 @@ Monitoring
 
 All you need just open main [page](http://itismonitoring.appspot.com/) and add your web resource/service/page/etc. to monitoring.
 <br>That's it! And no more additional steps required!
-We will collect your metrics immediately,
+<br>We will collect your metrics immediately,
 and soon (depending on your schedule configuration) you will be able to see insights on the main dashboard charts.
