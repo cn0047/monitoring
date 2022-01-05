@@ -1,7 +1,6 @@
 Monitoring
 -
 
-[![CircleCI](https://circleci.com/gh/cn007b/monitoring.svg?style=svg)](https://circleci.com/gh/cn007b/monitoring)
 [![Go Report Card](https://goreportcard.com/badge/github.com/cn007b/monitoring)](https://goreportcard.com/report/github.com/cn007b/monitoring)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a5ff4f7af1bd99c5fdbb/maintainability)](https://codeclimate.com/github/cn007b/monitoring/maintainability)
 
